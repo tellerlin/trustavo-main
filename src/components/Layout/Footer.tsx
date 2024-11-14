@@ -1,15 +1,108 @@
-import { Layout } from 'antd'
+import React from "react";
+import logo from '../../assets/img/logo.jpg'; // 根据实际路径调整
 
-const { Footer: AntFooter } = Layout
-
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
-    <AntFooter className="text-center bg-gray-100">
-      <div className="max-w-7xl mx-auto">
-        <p>© 2024 Trustavo. All rights reserved.</p>
+    <footer className="relative bg-gray-300 pt-8 pb-6">
+      <div
+        className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
+        style={{ height: "80px" }}
+      >
+        <svg
+          className="absolute bottom-0 overflow-hidden"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          version="1.1"
+          viewBox="0 0 2560 100"
+          x="0"
+          y="0"
+        >
+          <polygon
+            className="text-gray-300 fill-current"
+            points="2560 0 2560 100 0 100"
+          ></polygon>
+        </svg>
       </div>
-    </AntFooter>
-  )
+      <div className="container mx-auto px-4">
+        <div className="flex flex-wrap">
+          <div className="w-full lg:w-6/12 px-4">
+            <div className="flex items-center mb-4">
+              <img
+                src={logo}
+                alt="Trustavo Logo"
+                className="h-10 mr-3"
+              />
+              <h4 className="text-3xl font-semibold">让我们保持联系！</h4>
+            </div>
+            <h5 className="text-lg mt-0 mb-2 text-gray-700">
+              在这些平台上找到我们，我们会在1-2个工作日内回复。
+            </h5>
+            <div className="mt-6 flex space-x-4">
+              <button
+                className="flex items-center justify-center bg-white text-green-500 shadow-lg font-normal h-12 w-12 rounded-full outline-none focus:outline-none p-3"
+                type="button"
+              >
+                <i className="fab fa-weixin fa-2x"></i>
+              </button>
+              <button
+                className="flex items-center justify-center bg-white text-green-600 shadow-lg font-normal h-12 w-12 rounded-full outline-none focus:outline-none p-3"
+                type="button"
+              >
+                <i className="fab fa-whatsapp fa-2x"></i>
+              </button>
+            </div>
+          </div>
+          <div className="w-full lg:w-6/12 px-4">
+            <div className="flex flex-wrap items-top mb-6">
+              <div className="w-full lg:w-4/12 px-4">
+                <span className="block uppercase text-gray-600 text-sm font-semibold mb-2">
+                  其他产品
+                </span>
+                <ul className="list-unstyled">
+                  <li>
+                    <a
+                      className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                      href="https://www.trustavo.com/free-products"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      重疾险方案规划
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div className="w-full lg:w-4/12 px-4">
+                <span className="block uppercase text-gray-600 text-sm font-semibold mb-2">
+                  其他信息
+                </span>
+                <ul className="list-unstyled">
+                  <li>
+                    <a
+                      className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                      href="https://www.trustavo.com/privacy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      隐私政策
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr className="my-6 border-gray-400" />
+        <div className="flex flex-wrap items-center md:justify-between justify-center">
+          <div className="w-full md:w-4/12 px-4 mx-auto text-center">
+            <div className="text-sm text-gray-600 font-semibold py-1">
+              Copyright © {new Date().getFullYear()}{" "}
+              Trustavo. 版权所有.
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }
 
-export default Footer
+export default Footer;
