@@ -1,238 +1,200 @@
 # Trustavo 理财方案规划工具
 
-## 业务需求分析
+## 文档说明
+本文档面向开发人员，主要说明项目的技术架构、文件结构、数据结构和业务流程等开发相关内容。项目包含公司官网展示和理财方案规划工具两大部分，一期主要聚焦储蓄险产品的规划工具开发。
 
-### 客户画像
-- **目标用户**：香港理财顾问
-- **使用场景**：
-  * 客户咨询时快速生成方案
-  * 多方案对比分析
-  * 产品组合优化调整
-- **核心痛点**：
-  * 手动计算方案耗时
-  * 产品组合优化复杂
-  * 方案展示不够直观
+## 业务描述
+
+### 项目概述
+本项目是面向香港理财师的专业理财方案规划工具，通过标准化的流程和AI辅助分析，帮助理财师快速生成专业的储蓄险规划方案。
 
 ### 核心功能
-1. **公司主页**
-   - 公司简介和价值主张
-   - 产品功能介绍
-   - 计算器功能入口
-   - 联系方式
+1. **公司官网**
+   - 展示公司价值主张和核心功能
+   - 提供在线咨询和联系方式
+   - 理财师登录入口
 
-2. **基础理财计算器**
-   - **客户需求输入**
-     * 年度开支需求（范围：10万-1000万）
-     * 通胀率预期（范围：0-10%）
-     * 最早提取年度（范围：1-30年）
-     * 结束年度（范围：5-50年）
-   - **产品匹配计算**
-     * 读取预设的产品IRR表
-     * 按年度筛选最优IRR产品
-     * 根据客户提取需求匹配产品组合
-   - **方案展示**
-     * 总提取金额（表格+图表）
-     * 综合回报率分析
-     * 合计年度保费明细
-     * 推荐产品组合（含投保金额）
-     * PDF报告导出功能
+2. **理财方案规划工具**
+   - 理财师账户管理
+   - 客户信息管理
+   - 储蓄险产品筛选
+   - 方案计算和生成
+   - PDF报告导出
 
-### 暂不实现的功能
-- 用户注册和登��系统
-- 复杂的产品比较功能
-- 个性化推荐算法
-- 数据库存储用户信息
+### 目标用户
+- **主要用户**：香港理财师
+- **最终受益**：理财师的客户
+- **使用场景**：理财师为客户规划储蓄险方案时使用
 
-## 技术方案设计
+## 技术栈
+- **核心框架**: React 18 + TypeScript 5
+- **UI框架**: Ant Design 5
+- **状态管理**: Zustand
+- **样式方案**: TailwindCSS
+- **构建工具**: Vite
+- **开发工具**: ESLint + Prettier
 
-### 技术栈
-- **前端框架**：
-  * React 18 + TypeScript 5
-  * React Router DOM 6.x
-- **UI框架**：
-  * Ant Design 5.x
-  * @ant-design/icons
-  * @ant-design/charts（图表组件）
-  * @ant-design/pro-components
-- **状态管理**：
-  * Zustand 5.x
-- **样式方案**：
-  * TailwindCSS 3.x
-  * CSS Modules
-- **构建工具**：
-  * Vite 5.x
-  * TypeScript 5.x
-- **部署平台**：
-  * Cloudflare Pages
-- **数据存储**：
-  * 静态 JSON
-  * LocalStorage 缓存
-- **测试框架**：
-  * Jest 29.x
-  * React Testing Library
-  * @testing-library/jest-dom
-  * @testing-library/user-event
-  * jest-axe（可访问性测试）
-  * MSW（API Mock）
-  * Cypress（E2E测试）
-- **开发工具**：
-  * ESLint 8.x
-  * Prettier 3.x
-  * pnpm
-  * Git + GitHub
-  * VS Code
-
-### 项目结构
+## 项目结构
 ```
 src/
-├── __mocks__/           # Jest mock 文件
-│   └── @ant-design/     # 第三方库 mock
-│       └── charts.tsx   
 ├── components/          
-│   ├── Layout/         # 布局组件
-│   │   └── Header.tsx  # 页头组件
-│   ├── Home/           # 主页相关组件
-│   │   ├── Banner/     # 主页横幅
-│   │   └── Features/   # 功能特点展示
 │   ├── Calculator/     # 计算器相关组件
-│   │   ├── InputForm/  # 需求输入表单
-│   │   └── Result/     # 结果展示组件
-│   └── Contact/        # 联系我们组件
-│       ├── ContactForm/    # 联系表单
-│       └── ContactInfo/    # 联系信息
-├── pages/              
-│   ├── Home.tsx        # 首页
-│   ├── Calculator.tsx  # 计算器页面
-│   └── Contact.tsx     # 联系我们页面
+│   │   ├── LoginForm/      # 登录表单
+│   │   ├── UserInfoForm/   # 用户信息表单
+│   │   ├── ProductSelection/ # 产品选择
+│   │   ├── InputForm/      # 需求输入表单
+│   │   └── Result/         # 结果展示
+│   └── Layout/         # 布局组件
+│       ├── Navbar.tsx      # 导航栏
+│       └── Footer.tsx      # 页脚
+├── pages/              # 页面组件
+│   ├── Home.tsx           # 公司主页
+│   ├── Contact.tsx        # 联系我们
+│   └── Calculator.tsx     # 计算器页面
 ├── store/              # 状态管理
-├── utils/              
-│   ├── calculator/     # 计算相关工具函数
-│   ├── optimization/   # 优化算法
-│   └── format/         # 格式化工具
-├── data/               # 静态数据
-├── types/              # TypeScript 类型定义
+│   └── calculatorStore.ts  # 计算器状态
 ├── styles/             # 样式文件
-└── test/               # 测试相关文件
-    ├── setup/          # 测试环境配置
-    └── helpers/        # 测试辅助函数
+│   ├── tailwind.css       # Tailwind 样式
+│   └── landing.css        # 落地页样式
+├── assets/             # 静态资源
+│   └── img/               # 图片资源
+├── types/              # 类型定义
+│   └── index.ts          # 类型声明文件
+└── utils/              # 工具函数
+    ├── calculator.ts      # 计算相关
+    └── format.ts          # 格式化工具
 ```
 
-## 数据结构设计
+## 已完成页面
 
-### 产品数据
-- IRR表：产品内部收益率数据
-- 产品信息：基本信息、投资限额、期限等
-- 客户需求：年度开支、通胀率、提取年限等
+### 公司官网
+1. **首页 (Home.tsx)**
+   - Hero 区块：展示产品价值主张
+   - 功能特点：AI分析、方案对比、产品优化
+   - 公司介绍：关于我们和使命愿景
 
-### 计算结果
-- 方案总览：总投资额、预期收益等
-- 现金流表：按年度展示收支情况
-- 产品组合：推荐产品及配置比例
+2. **联系页面 (Contact.tsx)**
+   - 公司联系信息
+   - 在线咨询表单
+   - 社交媒体链接
 
-## 核心算法设计
+### 理财工具
+1. **计算器页面 (Calculator.tsx)**
+   - 多步骤表单流程
+   - 进度展示
+   - 方案生成
 
-### IRR计算引擎
-- 现金流计算模型
-- 通胀影响计算
-- 复利效应处理
-- 异常情况处理机制
+## 业务流程
 
-### 产品匹配算法
-- 多维度评分机制
-- 产品筛选规则
-- 组合优化策略
-- 约束条件处理
+### 理财方案规划流程
+1. **登录验证**
+   - 理财师账号登录
+   - 权限验证
 
-### 投资组合优化
-- 风险平衡策略
-- 收益最大化算法
-- 投资限额处理
-- 动态调整机制
+2. **客户信息录入**
+   - 基本信息（姓名、性别、年龄）
+   - 家庭成员信息
 
-## 计算流程设计
+3. **产品筛选**
+   - 储蓄险产品列表
+   - 产品详情查看
+   - 候选产品选择
 
-### 需求处理流程
-1. 输入验证和标准化
-2. 通胀影响计算
-3. 年度现金流需求表生成
-4. 总资金需求评估
+4. **需求设置**
+   - 年度开支需求
+   - 通胀率预期
+   - 提取期间设置
 
-### 产品匹配流程
-1. IRR数据筛选和排序
-2. 产品组合初筛
-3. 投资金额计算和验证
-4. 最优组合生成
+5. **方案生成**
+   - 产品组合建议
+   - 现金流分析
+   - PDF报告导出
 
-### 结果输出流程
-1. 方案数据汇总
-2. 收益率计算
-3. 现金流分析
-4. 报告生成
+## 数据结构
 
-## 错误处理策略
+### 用户信息 (UserInfo)
+```typescript
+interface UserInfo {
+  name: string;
+  gender: 'male' | 'female';
+  age: number;
+  familyMembers: FamilyMember[];
+}
+```
 
-### 输入验证
-- 数值范围检查
-- 逻辑关系验证
-- 数据类型校验
-- 必填项检查
+### 保险产品 (InsuranceProduct)
+```typescript
+interface InsuranceProduct {
+  id: string;
+  company: string;
+  productName: string;
+  fullName: string;
+  minInvestment: number;
+  maxInvestment: number;
+  currency: 'HKD' | 'USD';
+  paymentTerm: number;
+  description: string;
+  features: string[];
+}
+```
 
-### 计算异常处理
-- 无匹配产品处理
-- 数据异常处理
-- 计算超时处理
-- 内存溢出防护
+### 客户需求 (CustomerNeed)
+```typescript
+interface CustomerNeed {
+  yearlyExpense: number;
+  inflation: number;
+  startYear: number;
+  endYear: number;
+}
+```
 
-## 性能优化策略
+### 方案结果 (Solution)
+```typescript
+interface Solution {
+  totalWithdrawal: number;
+  overallIRR: number;
+  totalPremium: number;
+  recommendations: {
+    productId: string;
+    premium: number;
+  }[];
+}
+```
 
-### 数据处理优化
-- 数据预加载机制
-- 缓存策略设计
-- 增量更新机制
-- 懒加载实现
+## 开发规范
 
-### 计算性能优化
-- 并行计算处理
-- 内存使用优化
-- 计算任务分片
-- 结果缓存机制
+### Git 提交规范
+- feat: 新功能
+- fix: 修复问题
+- docs: 文档修改
+- style: 代码格式修改
+- refactor: 代码重构
+- test: 测试用例修改
+- chore: 其他修改
 
-### 页面性能优化
-- 组件按需加载
-- 资源优化加载
-- 渲染性能优化
-- 网络请求优化
+### 开发规范
+- 使用 TypeScript 严格模式
+- 组件使用函数组件和 Hooks
+- 组件文件使用 PascalCase 命名
+- 工具函数使用 camelCase 命名
+- 使用 Tailwind CSS 进行样式开发
+- 组件保持纯展示，逻辑放在 hooks 中
+- 所有金额计算保留两位小数
+- 百分比显示保留一位小数
 
-## 扩展性设计
-
-### 产品扩展机制
-- 产品接口标准化
-- 计算规则配置化
-- 动态加载支持
-- 版本兼容处理
-
-### 功能扩展接口
-- 模块化设计
-- 插件机制
-- API版本控制
-- 配置化支持
-
-## 测试策略
-
-### 单元测试
-- 计算逻辑测试
-- 数据处理测试
-- 工具函数测试
-- 组件渲染测试
-
-### 集成测试
-- 流程完整性测试
-- 数据一致性测试
-- 性能指标测试
-- 异常处理测试
-
-### 兼容性测试
-- 浏览器兼容测试
-- 设备适配测试
-- 网络环境测试
-- 性能阈值测试
+## 待开发功能
+- [ ] 产品服务页面开发
+- [ ] 理财师功能完善
+  * 登录注册
+  * 个人中心
+  * 客户管理
+- [ ] 计算器功能
+  * 用户信息表单完善
+  * 产品选择界面开发
+  * 需求录入表单
+  * PDF导出功能
+- [ ] 系统优化
+  * 表单验证增强
+  * 响应式适配优化
+  * 错误处理完善
+  * 单元测试覆盖
