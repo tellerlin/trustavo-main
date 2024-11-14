@@ -28,6 +28,17 @@ const Contact = () => {
             <p>
               <strong>工作时间：</strong> 周一至周五 9:00-18:00
             </p>
+            <div className="pt-4 border-t">
+              <p className="mb-4"><strong>社交媒体：</strong></p>
+              <div className="flex space-x-4">
+                <a href="#" className="text-2xl text-gray-600 hover:text-blue-500">
+                  <i className="fab fa-weixin"></i>
+                </a>
+                <a href="#" className="text-2xl text-gray-600 hover:text-green-500">
+                  <i className="fab fa-whatsapp"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </Card>
 

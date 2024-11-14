@@ -26,33 +26,6 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap">
           <div className="w-full lg:w-6/12 px-4">
-            <div className="flex items-center mb-4">
-              <img
-                src={logo}
-                alt="Trustavo Logo"
-                className="h-10 mr-3"
-              />
-              <h4 className="text-3xl font-semibold">让我们保持联系！</h4>
-            </div>
-            <h5 className="text-lg mt-0 mb-2 text-gray-700">
-              在这些平台上找到我们，我们会在1-2个工作日内回复。
-            </h5>
-            <div className="mt-6 flex space-x-4">
-              <button
-                className="flex items-center justify-center bg-white text-green-500 shadow-lg font-normal h-12 w-12 rounded-full outline-none focus:outline-none p-3"
-                type="button"
-              >
-                <i className="fab fa-weixin fa-2x"></i>
-              </button>
-              <button
-                className="flex items-center justify-center bg-white text-green-600 shadow-lg font-normal h-12 w-12 rounded-full outline-none focus:outline-none p-3"
-                type="button"
-              >
-                <i className="fab fa-whatsapp fa-2x"></i>
-              </button>
-            </div>
-          </div>
-          <div className="w-full lg:w-6/12 px-4">
             <div className="flex flex-wrap items-top mb-6">
               <div className="w-full lg:w-4/12 px-4">
                 <span className="block uppercase text-gray-600 text-sm font-semibold mb-2">

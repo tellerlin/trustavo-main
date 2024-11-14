@@ -55,7 +55,7 @@
   * @ant-design/charts（图表组件）
   * @ant-design/pro-components
 - **状态管理**：
-  * Zustand 4.x
+  * Zustand 5.x
 - **样式方案**：
   * TailwindCSS 3.x
   * CSS Modules
@@ -119,55 +119,15 @@ src/
 
 ## 数据结构设计
 
-1. **IRR数据结构**
-```typescript
-interface ProductIRR {
-  productId: string;
-  fullName: string;      
-  currency: string;      
-  paymentTerm: number;   
-  irrTable: {
-    surrenderYear: number;
-    irr: number;
-  }[];
-}
-```
+### 产品数据
+- IRR表：产品内部收益率数据
+- 产品信息：基本信息、投资限额、期限等
+- 客户需求：年度开支、通胀率、提取年限等
 
-2. **产品数据结构**
-```typescript
-interface InsuranceProduct {
-  id: string;
-  company: string;         
-  productName: string;     
-  fullName: string;        
-  minInvestment: number;   
-  maxInvestment: number;   
-  currency: 'HKD' | 'USD'; 
-  paymentTerm: number;     
-  description: string;     
-  features: string[];      
-}
-```
-
-3. **计算相关接口**
-```typescript
-interface CustomerNeed {
-  yearlyExpense: number;    
-  inflation: number;        
-  startYear: number;        
-  endYear: number;         
-}
-
-interface Solution {
-  totalWithdrawal: number;  
-  overallIRR: number;       
-  totalPremium: number;     
-  recommendations: {        
-    productId: string;
-    premium: number;
-  }[];
-}
-```
+### 计算结果
+- 方案总览：总投资额、预期收益等
+- 现金流表：按年度展示收支情况
+- 产品组合：推荐产品及配置比例
 
 ## 核心算法设计
 

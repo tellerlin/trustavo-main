@@ -37,6 +37,14 @@ const Home: React.FC = () => {
                   <p className="mt-4 text-lg text-gray-300">
                     Trustavo 理财方案规划工具，助您为客户提供高效、精准的理财方案，简化财务规划流程，提升专业服务水平。
                   </p>
+                  <div className="mt-8">
+                    <a
+                      href="/calculator"
+                      className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-base px-8 py-3 rounded-lg shadow-md hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                    >
+                      开始试用
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
