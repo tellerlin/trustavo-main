@@ -9,9 +9,11 @@ lerna-debug.log*
 
 # 依赖目录
 node_modules/
+
 # 构建输出目录
 dist/
 dist-ssr/
+
 # 本地环境配置文件
 *.local
 .env
@@ -20,8 +22,9 @@ dist-ssr/
 .env.test.local
 .env.production.local
 
-# Coverage 报告
+# 覆盖率报告
 coverage/
+
 # Jest 缓存
 jest-cache/
 .cache/
