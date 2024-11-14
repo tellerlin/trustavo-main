@@ -69,7 +69,7 @@ const Footer: React.FC = () => {
           <div className="w-full md:w-4/12 px-4 mx-auto text-center">
             <div className="text-sm text-gray-600 font-semibold py-1">
               Copyright © {new Date().getFullYear()}{" "}
-              Trustavo. 版权所有.
+              Trustavo卓信方案有限公司. 版权所有.
             </div>
           </div>
         </div>

@@ -32,10 +32,10 @@ const Home: React.FC = () => {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    专业的理财方案规划工具
+                    理财规划大师
                   </h1>
                   <p className="mt-4 text-lg text-gray-300">
-                    Trustavo 理财方案规划工具，助您为客户提供高效、精准的理财方案，简化财务规划流程，提升专业服务水平。
+                    Trustavo 融合人工智能技术，为理财顾问提供智能化的方案规划工具。通过AI驱动的数据分析，助您制定更精准、更专业的理财方案。
                   </p>
                   <div className="mt-8">
                     <a
@@ -79,11 +79,11 @@ const Home: React.FC = () => {
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                      <i className="fas fa-chart-line"></i>
+                      <i className="fas fa-robot"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">高效计算</h6>
+                    <h6 className="text-xl font-semibold">AI智能分析</h6>
                     <p className="mt-2 mb-4 text-gray-600">
-                      自动化处理复杂的理财计算，节省您的时间，提高工作效率。
+                      运用人工智能技术，智能分析客户需求，提供更精准的理财建议。
                     </p>
                   </div>
                 </div>
@@ -130,10 +130,10 @@ const Home: React.FC = () => {
               <div className="w-full md:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold">关于我们</h2>
                 <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                  Trustavo 专注于为香港理财顾问提供先进的理财方案规划工具。我们的平台集成了高效的计算引擎、多方案对比分析及产品组合优化功能，旨在简化复杂的理财规划流程，提升顾问的专业服务能力。
+                  Trustavo 将人工智能技术与理财规划完美结合，为香港理财顾问打造新一代智能规划工具。我们的AI引擎能够快速分析海量数据，帮助您制定更精准的投资策略，大幅提升服务效率和专业水平。
                 </p>
                 <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                  通过使用 Trustavo，您可以快速生成符合客户需求的理财方案，进行多维度的方案对比分析，并根据市场动态实时优化产品组合，确保为客户提供最优质的理财建议。
+                  借助 Trustavo 的AI分析能力，您可以更快速地理解客户需求，生成个性化的理财方案，并通过数据驱动的方式持续优化投资组合，为客户创造更大的价值。
                 </p>
               </div>
 
@@ -141,10 +141,10 @@ const Home: React.FC = () => {
               <div className="w-full md:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold">我们的使命</h2>
                 <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                  我们的使命是通过技术创新，帮助理财顾问提升工作效率，优化客户体验，实现客户财务目标。Trustavo 致力于成为您值得信赖的合作伙伴，为您和您的客户带来卓越的理财规划解决方案。
+                  我们致力于用AI技术赋能理财顾问，让每一位专业人士都能借助人工智能的力量，提供更专业、更精准的理财服务。Trustavo 将成为您的智能助手，助力您在数字化时代保持竞争优势。
                 </p>
                 <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                  我们相信，精准、高效的理财规划是帮助客户实现财务自由的关键。通过持续优化我们的工具和服务，Trustavo 希望为香港理财顾问提供最强有力的支持，共同推动理财行业的发展。
+                  我们相信，AI与人类专业知识的结合将重新定义理财服务的未来。通过不断创新和优化我们的AI算法，Trustavo 将持续为香港理财顾问提供领先的技术支持，推动行业向更智能化的方向发展。
                 </p>
               </div>
             </div>
