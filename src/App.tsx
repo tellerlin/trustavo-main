@@ -1,15 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
-import HomePage from './pages/Home'
-import CalculatorPage from './pages/Calculator'
+import Home from './pages/Home'
+import Calculator from './pages/Calculator'
+import Contact from './pages/Contact'
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Layout>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/calculator" element={<CalculatorPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/calculator" element={<Calculator />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </Layout>
     </Router>

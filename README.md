@@ -1,4 +1,4 @@
-# Trustavo 理财方案工具
+# Trustavo 理财方案规划工具
 
 ## 业务需求分析
 
@@ -38,7 +38,7 @@
      * PDF报告导出功能
 
 ### 暂不实现的功能
-- 用户注册和登录系统
+- 用户注册和登��系统
 - 复杂的产品比较功能
 - 个性化推荐算法
 - 数据库存储用户信息
@@ -46,38 +46,64 @@
 ## 技术方案设计
 
 ### 技术栈
-- **前端框架**：React 18 + TypeScript 5
-- **UI框架**：Ant Design 5.x
-- **状态管理**：Zustand
-- **样式方案**：TailwindCSS + CSS Modules
-- **构建工具**：Vite 4.x
-- **部署平台**：Cloudflare Pages
-- **数据存储**：静态 JSON + LocalStorage 缓存
-
-### 开发工具链
-- **代码规范**：ESLint + Prettier
-- **类型检查**：TypeScript strict mode
-- **版本控制**：Git + GitHub
-- **包管理器**：pnpm
-- **编辑器**：VS Code + 推荐插件配置
+- **前端框架**：
+  * React 18 + TypeScript 5
+  * React Router DOM 6.x
+- **UI框架**：
+  * Ant Design 5.x
+  * @ant-design/icons
+  * @ant-design/charts（图表组件）
+  * @ant-design/pro-components
+- **状态管理**：
+  * Zustand 4.x
+- **样式方案**：
+  * TailwindCSS 3.x
+  * CSS Modules
+- **构建工具**：
+  * Vite 5.x
+  * TypeScript 5.x
+- **部署平台**：
+  * Cloudflare Pages
+- **数据存储**：
+  * 静态 JSON
+  * LocalStorage 缓存
+- **测试框架**：
+  * Jest 29.x
+  * React Testing Library
+  * @testing-library/jest-dom
+  * @testing-library/user-event
+  * jest-axe（可访问性测试）
+  * MSW（API Mock）
+  * Cypress（E2E测试）
+- **开发工具**：
+  * ESLint 8.x
+  * Prettier 3.x
+  * pnpm
+  * Git + GitHub
+  * VS Code
 
 ### 项目结构
 ```
 src/
+├── __mocks__/           # Jest mock 文件
+│   └── @ant-design/     # 第三方库 mock
+│       └── charts.tsx   
 ├── components/          
 │   ├── Layout/         # 布局组件
-│   │   ├── Header/     # 页头组件
-│   │   └── Footer/     # 页脚组件
+│   │   └── Header.tsx  # 页头组件
 │   ├── Home/           # 主页相关组件
 │   │   ├── Banner/     # 主页横幅
-│   │   ├── Features/   # 功能特点展示
-│   │   └── Contact/    # 联系方式
-│   └── Calculator/     # 计算器相关组件
-│       ├── InputForm/  # 需求输入表单
-│       └── Result/     # 结果展示组件
+│   │   └── Features/   # 功能特点展示
+│   ├── Calculator/     # 计算器相关组件
+│   │   ├── InputForm/  # 需求输入表单
+│   │   └── Result/     # 结果展示组件
+│   └── Contact/        # 联系我们组件
+│       ├── ContactForm/    # 联系表单
+│       └── ContactInfo/    # 联系信息
 ├── pages/              
-│   ├── Home/           # 首页
-│   └── Calculator/     # 计算器页面
+│   ├── Home.tsx        # 首页
+│   ├── Calculator.tsx  # 计算器页面
+│   └── Contact.tsx     # 联系我们页面
 ├── store/              # 状态管理
 ├── utils/              
 │   ├── calculator/     # 计算相关工具函数
@@ -85,7 +111,10 @@ src/
 │   └── format/         # 格式化工具
 ├── data/               # 静态数据
 ├── types/              # TypeScript 类型定义
-└── styles/             # 样式文件
+├── styles/             # 样式文件
+└── test/               # 测试相关文件
+    ├── setup/          # 测试环境配置
+    └── helpers/        # 测试辅助函数
 ```
 
 ## 数据结构设计
