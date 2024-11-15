@@ -3,11 +3,11 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useCalculatorStore } from '@/store/calculatorStore';
 
 const LoginForm = () => {
-  const { nextStep } = useCalculatorStore();
+  const { nextStep, updateFormData, formData } = useCalculatorStore();
 
   const onFinish = (values: any) => {
     console.log('Login values:', values);
-    // TODO: 实现登录逻辑
+    updateFormData('loginInfo', values);
     nextStep();
   };
 
@@ -17,6 +17,7 @@ const LoginForm = () => {
       onFinish={onFinish}
       autoComplete="off"
       layout="vertical"
+      initialValues={formData.loginInfo}
     >
       <Form.Item
         name="username"

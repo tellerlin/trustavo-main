@@ -7,8 +7,7 @@ import InputForm from '@/components/Calculator/InputForm'
 import Result from '@/components/Calculator/Result'
 
 const Calculator = () => {
-  const { currentStep, setCurrentStep } = useCalculatorStore()
-  console.log('Current step in Calculator:', currentStep)
+  const { currentStep, setCurrentStep, formData } = useCalculatorStore()
 
   const steps = [
     {
@@ -33,8 +32,28 @@ const Calculator = () => {
     },
   ]
 
+  // 检查是否可以跳转到目标步骤
+  const canJumpToStep = (targetStep: number) => {
+    // 允许回退到任何步骤
+    if (targetStep < currentStep) {
+      return true;
+    }
+
+    // 不允许跳过步骤
+    if (targetStep > currentStep + 1) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleStepChange = (step: number) => {
+    if (canJumpToStep(step)) {
+      setCurrentStep(step);
+    }
+  };
+
   const renderStepContent = () => {
-    console.log('Rendering step:', currentStep)
     switch (currentStep) {
       case 0:
         return <LoginForm />
@@ -45,7 +64,6 @@ const Calculator = () => {
       case 3:
         return <InputForm />
       case 4:
-        console.log('Rendering Result component')
         return <Result />
       default:
         return null
@@ -59,7 +77,8 @@ const Calculator = () => {
       <Steps 
         current={currentStep} 
         items={steps}
-        onChange={setCurrentStep}
+        onChange={handleStepChange}
+        type="navigation"
       />
       
       <Card className="mt-8">

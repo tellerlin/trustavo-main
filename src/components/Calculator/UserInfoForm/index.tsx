@@ -1,4 +1,4 @@
-import { Form, Input, Select, InputNumber, Button, Space } from 'antd';
+import { Form, Input, Radio, InputNumber, Button, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useCalculatorStore } from '@/store/calculatorStore';
 
@@ -18,7 +18,10 @@ const UserInfoForm = () => {
       name="userInfo"
       onFinish={onFinish}
       layout="vertical"
-      initialValues={formData.userInfo}
+      initialValues={{
+        gender: 'male',
+        ...formData.userInfo
+      }}
     >
       <Form.Item
         name="name"
@@ -33,10 +36,10 @@ const UserInfoForm = () => {
         label="性别"
         rules={[{ required: true, message: '请选择性别' }]}
       >
-        <Select>
-          <Option value="male">男</Option>
-          <Option value="female">女</Option>
-        </Select>
+        <Radio.Group>
+          <Radio value="male">男</Radio>
+          <Radio value="female">女</Radio>
+        </Radio.Group>
       </Form.Item>
 
       <Form.Item

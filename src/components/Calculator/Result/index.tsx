@@ -1,131 +1,225 @@
-import { Card, Table, Button, Spin, Typography } from 'antd';
+import { Card, Table, Button, Spin, Typography, Descriptions } from 'antd';
 import { Line } from '@ant-design/charts';
 import { formatCurrency } from '@/utils/format';
 import { useCalculatorStore } from '@/store/calculatorStore';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 
 const { Title, Paragraph } = Typography;
 
 const Result = ({ loading = false }) => {
-  console.log('Rendering Result component');
-  const solution = useCalculatorStore((state) => state.solution);
-  console.log('Solution data:', solution);
+  const { solution, formData } = useCalculatorStore();
+  const { userInfo, requirements } = formData;
 
-  // 为推荐产品添加唯一 key
-  const recommendationsWithKeys = useMemo(() => {
-    return solution?.recommendations.map((rec, index) => ({
-      ...rec,
-      key: rec.productId || `rec-${index}` // 使用 productId 作为 key，如果没有则使用索引
-    }));
-  }, [solution?.recommendations]);
-
+  // 定义表格列配置
   const productColumns = [
     {
+      title: '保险公司',
+      dataIndex: 'company',
+      key: 'company',
+    },
+    {
       title: '产品名称',
-      key: 'fullName',
-      render: (_, record) => `${record.company}-${record.productName}`
+      dataIndex: 'productName',
+      key: 'productName',
     },
     {
       title: '年度保费',
       dataIndex: 'premium',
       key: 'premium',
-      render: (value: number) => formatCurrency(value)
+      render: (value: number) => formatCurrency(value),
     },
     {
       title: '产品特点',
       dataIndex: 'features',
       key: 'features',
-      render: (features: string[]) => (
-        <div className="space-x-2">
-          {features?.map((feature, index) => (
-            <span 
-              key={`${feature}-${index}`} // 使用更好的 key
-              className="inline-block px-2 py-1 text-xs bg-blue-100 text-blue-600 rounded"
-            >
-              {feature}
-            </span>
-          ))}
-        </div>
-      )
-    }
+      render: (features: string[]) => features.join('、'),
+    },
   ];
 
-  // 现金流图表配置
+  // 为推荐产品添加唯一 key
+  const recommendationsWithKeys = useMemo(() => {
+    return solution?.recommendations.map((rec, index) => ({
+      ...rec,
+      key: rec.productId || `rec-${index}`
+    }));
+  }, [solution?.recommendations]);
+
+  // 图表配置优化
   const chartConfig = {
     data: solution?.cashFlow || [],
     xField: 'year',
     yField: 'balance',
+    seriesField: 'type',
     smooth: true,
-    point: {
-      size: 5,
-      shape: 'diamond',
+    animation: {
+      appear: {
+        animation: 'path-in',
+        duration: 1000,
+      },
+    },
+    legend: {
+      position: 'top',
+    },
+    xAxis: {
+      title: { text: '年份' },
+    },
+    yAxis: {
+      title: { text: '金额' },
+      label: {
+        formatter: (v: number) => `${formatCurrency(v)}`,
+      },
     },
     tooltip: {
       formatter: (datum: any) => {
-        return {
-          name: '累计余额',
-          value: formatCurrency(datum.balance)
-        };
-      }
-    }
+        return { name: datum.type, value: formatCurrency(datum.balance) };
+      },
+    },
   };
+
+  // 处理打印功能
+  const handlePrint = () => {
+    window.print();
+  };
+
+  // 添加打印样式
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @media print {
+        @page { 
+          size: A4; 
+          margin: 2cm; 
+        }
+        body * { 
+          visibility: hidden; 
+        }
+        #report-content, #report-content * { 
+          visibility: visible; 
+        }
+        #report-content { 
+          position: absolute; 
+          left: 0; 
+          top: 0; 
+          width: 100%; 
+        }
+        .no-print { 
+          display: none !important; 
+        }
+        .ant-card { 
+          break-inside: avoid; 
+          margin-bottom: 20px; 
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   return (
     <Spin spinning={loading}>
       {solution ? (
-        <div className="space-y-8">
-          <Title level={2} className="text-center">储蓄险理财方案</Title>
+        <>
+          <div id="report-content" className="space-y-8">
+            <Title level={2} className="text-center">储蓄险理财方案</Title>
 
-          {/* 方案概览 */}
-          <Card title="方案概览">
-            <div className="grid grid-cols-3 gap-8">
-              <div>
-                <div className="text-gray-500">总提取金额</div>
-                <div className="text-xl font-bold">
-                  {formatCurrency(solution.totalWithdrawal)}
+            {/* 客户信息 */}
+            <Card title="客户信息">
+              <Descriptions column={2}>
+                <Descriptions.Item label="姓名">{userInfo?.name}</Descriptions.Item>
+                <Descriptions.Item label="性别">
+                  {userInfo?.gender === 'male' ? '男' : '女'}
+                </Descriptions.Item>
+                <Descriptions.Item label="年龄">{userInfo?.age}岁</Descriptions.Item>
+                {userInfo?.familyMembers?.length > 0 && (
+                  <Descriptions.Item label="家庭成员">
+                    {userInfo.familyMembers.map((member: any, index: number) => (
+                      <span key={index}>
+                        {index > 0 && '、'}
+                        {member.relationship === 'spouse' ? '配偶' : 
+                         member.relationship === 'child' ? '子女' : '父母'}
+                        : {member.age}岁
+                      </span>
+                    ))}
+                  </Descriptions.Item>
+                )}
+              </Descriptions>
+            </Card>
+
+            {/* 需求信息 */}
+            <Card title="理财需求">
+              <Descriptions column={2}>
+                <Descriptions.Item label="年度开支需求">
+                  {formatCurrency(requirements?.yearlyExpense)}
+                </Descriptions.Item>
+                <Descriptions.Item label="通胀率预期">
+                  {(requirements?.inflation * 100).toFixed(1)}%
+                </Descriptions.Item>
+                <Descriptions.Item label="提取期间">
+                  {requirements?.startYear} - {requirements?.endYear}
+                </Descriptions.Item>
+              </Descriptions>
+            </Card>
+
+            {/* 方案概览 */}
+            <Card title="方案概览">
+              <div className="grid grid-cols-3 gap-8">
+                <div>
+                  <div className="text-gray-500">总提取金额</div>
+                  <div className="text-xl font-bold">
+                    {formatCurrency(solution.totalWithdrawal)}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-gray-500">综合回报率</div>
+                  <div className="text-xl font-bold text-red-600">
+                    {(solution.overallIRR * 100).toFixed(2)}%
+                  </div>
+                </div>
+                <div>
+                  <div className="text-gray-500">合计年度保费</div>
+                  <div className="text-xl font-bold">
+                    {formatCurrency(solution.totalPremium)}
+                  </div>
                 </div>
               </div>
-              <div>
-                <div className="text-gray-500">综合回报率</div>
-                <div className="text-xl font-bold text-red-600">
-                  {(solution.overallIRR * 100).toFixed(2)}%
-                </div>
-              </div>
-              <div>
-                <div className="text-gray-500">合计年度保费</div>
-                <div className="text-xl font-bold">
-                  {formatCurrency(solution.totalPremium)}
-                </div>
-              </div>
-            </div>
-          </Card>
+            </Card>
 
-          {/* 推荐产品组合 */}
-          <Card title="推荐产品组合">
-            <Table
-              dataSource={recommendationsWithKeys}
-              columns={productColumns}
-              pagination={false}
-              rowKey="key" // 明确指定 rowKey
-            />
-          </Card>
+            {/* 推荐产品组合 */}
+            <Card title="推荐产品组合">
+              <Table
+                dataSource={recommendationsWithKeys}
+                columns={productColumns}
+                pagination={false}
+                rowKey="key"
+              />
+            </Card>
 
-          {/* 方案解读 */}
-          <Card title="方案解读">
-            <Paragraph className="whitespace-pre-line">
-              {solution.analysis}
-            </Paragraph>
-          </Card>
+            {/* 方案解读 */}
+            <Card title="方案解读">
+              <Paragraph className="whitespace-pre-line">
+                {solution.analysis}
+              </Paragraph>
+            </Card>
 
-          {/* 现金流分析 */}
-          <Card title="现金流分析">
-            <Line {...chartConfig} />
-          </Card>
+            {/* 现金流分析 */}
+            <Card title="现金流分析">
+              <Line {...chartConfig} />
+            </Card>
+          </div>
 
-          <Button type="primary" block size="large">
+          <Button 
+            type="primary" 
+            block 
+            size="large" 
+            onClick={handlePrint}
+            className="no-print mt-8"
+          >
             导出PDF报告
           </Button>
-        </div>
+        </>
       ) : (
         <div>加载中...</div>
       )}

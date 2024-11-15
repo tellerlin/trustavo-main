@@ -1,34 +1,36 @@
 import { create } from 'zustand';
-import { mockSolution } from '@/components/Calculator/Result/mockData';
 
-interface CalculatorState {
+interface CalculatorStore {
   currentStep: number;
   formData: {
+    loginInfo?: any;
     userInfo?: any;
-    selectedProducts?: string[];
+    selectedTerm?: number;
+    selectedCompanies?: string[];
+    selectedProducts?: any[];
     requirements?: any;
   };
-  solution: typeof mockSolution | null;
-  nextStep: () => void;
+  solution: any | null;
+  setCurrentStep: (step: number) => void;
   updateFormData: (key: string, value: any) => void;
-  setSolution: (solution: typeof mockSolution) => void;
+  setSolution: (solution: any) => void;
+  nextStep: () => void;
 }
 
-export const useCalculatorStore = create<CalculatorState>((set) => ({
+export const useCalculatorStore = create<CalculatorStore>((set) => ({
   currentStep: 0,
   formData: {},
   solution: null,
-  nextStep: () => set((state) => {
-    console.log('nextStep called, current step:', state.currentStep);
-    const newStep = Math.min(state.currentStep + 1, 4);
-    console.log('New step will be:', newStep);
-    return { currentStep: newStep };
-  }),
-  updateFormData: (key: string, value: any) => set((state) => {
-    console.log('Updating form data:', key, value);
-    return {
+  setCurrentStep: (step) => {
+    set({ currentStep: step });
+  },
+  updateFormData: (key, value) => 
+    set((state) => ({
       formData: { ...state.formData, [key]: value }
-    };
-  }),
-  setSolution: (solution: typeof mockSolution) => set({ solution }),
+    })),
+  setSolution: (solution) => set({ solution }),
+  nextStep: () => 
+    set((state) => ({
+      currentStep: state.currentStep + 1
+    })),
 }));
