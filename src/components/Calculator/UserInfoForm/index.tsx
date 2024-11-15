@@ -5,7 +5,7 @@ import { useCalculatorStore } from '@/store/calculatorStore';
 const { Option } = Select;
 
 const UserInfoForm = () => {
-  const { nextStep, updateFormData } = useCalculatorStore();
+  const { nextStep, updateFormData, formData } = useCalculatorStore();
 
   const onFinish = (values: any) => {
     console.log('UserInfo values:', values);
@@ -18,8 +18,8 @@ const UserInfoForm = () => {
       name="userInfo"
       onFinish={onFinish}
       layout="vertical"
+      initialValues={formData.userInfo}
     >
-      {/* 基本信息 */}
       <Form.Item
         name="name"
         label="客户姓名"
@@ -47,20 +47,11 @@ const UserInfoForm = () => {
         <InputNumber min={0} max={100} />
       </Form.Item>
 
-      {/* 家庭成员 */}
       <Form.List name="familyMembers">
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
               <Space key={key} align="baseline">
-                <Form.Item
-                  {...restField}
-                  name={[name, 'name']}
-                  rules={[{ required: true, message: '请输入成员姓名' }]}
-                >
-                  <Input placeholder="成员姓名" />
-                </Form.Item>
-
                 <Form.Item
                   {...restField}
                   name={[name, 'relationship']}
@@ -71,6 +62,14 @@ const UserInfoForm = () => {
                     <Option value="child">子女</Option>
                     <Option value="parent">父母</Option>
                   </Select>
+                </Form.Item>
+
+                <Form.Item
+                  {...restField}
+                  name={[name, 'age']}
+                  rules={[{ required: true, message: '请输入年龄' }]}
+                >
+                  <InputNumber min={0} max={100} placeholder="年龄" />
                 </Form.Item>
 
                 <MinusCircleOutlined onClick={() => remove(name)} />

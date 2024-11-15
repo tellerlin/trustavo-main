@@ -8,6 +8,7 @@ import Result from '@/components/Calculator/Result'
 
 const Calculator = () => {
   const { currentStep, setCurrentStep } = useCalculatorStore()
+  console.log('Current step in Calculator:', currentStep)
 
   const steps = [
     {
@@ -33,6 +34,7 @@ const Calculator = () => {
   ]
 
   const renderStepContent = () => {
+    console.log('Rendering step:', currentStep)
     switch (currentStep) {
       case 0:
         return <LoginForm />
@@ -43,6 +45,7 @@ const Calculator = () => {
       case 3:
         return <InputForm />
       case 4:
+        console.log('Rendering Result component')
         return <Result />
       default:
         return null
