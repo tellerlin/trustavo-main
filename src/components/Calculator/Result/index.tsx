@@ -6,6 +6,13 @@ import { useMemo, useEffect } from 'react';
 
 const { Title, Paragraph } = Typography;
 
+// 定义颜色常量
+const COLORS = {
+  PREMIUM: '#ff4d4f',    // 红色 - 保费支出
+  WITHDRAWAL: '#52c41a', // 绿色 - 提取金额
+  BALANCE: '#1890ff',    // 蓝色 - 累计余额
+};
+
 const Result = ({ loading = false }) => {
   const { solution, formData } = useCalculatorStore();
   const { userInfo, requirements } = formData;
@@ -13,14 +20,17 @@ const Result = ({ loading = false }) => {
   // 定义表格列配置
   const productColumns = [
     {
-      title: '保险公司',
-      dataIndex: 'company',
-      key: 'company',
-    },
-    {
       title: '产品名称',
       dataIndex: 'productName',
       key: 'productName',
+      fixed: 'left',
+      width: 150,
+    },
+    {
+      title: '保险公司',
+      dataIndex: 'company',
+      key: 'company',
+      responsive: ['sm'],
     },
     {
       title: '年度保费',
@@ -44,36 +54,155 @@ const Result = ({ loading = false }) => {
     }));
   }, [solution?.recommendations]);
 
-  // 图表配置优化
+  // 修改数据转换函数
+  const transformCashFlowData = (cashFlow: any[]) => {
+    if (!cashFlow) return [];
+    
+    return cashFlow.flatMap(item => [
+      {
+        year: item.year,
+        type: '保费支出',
+        value: item.premium,
+      },
+      {
+        year: item.year,
+        type: '提取金额',
+        value: item.withdrawal,
+      },
+      {
+        year: item.year,
+        type: '累计余额',
+        value: item.balance,
+      },
+    ]);
+  };
+
   const chartConfig = {
-    data: solution?.cashFlow || [],
+    data: transformCashFlowData(solution?.cashFlow || []),
     xField: 'year',
-    yField: 'balance',
+    yField: 'value',
     seriesField: 'type',
     smooth: true,
-    animation: {
-      appear: {
-        animation: 'path-in',
-        duration: 1000,
+    color: (type: string) => {
+      switch(type) {
+        case '保费支出':
+          return COLORS.PREMIUM;
+        case '提取金额':
+          return COLORS.WITHDRAWAL;
+        case '累计余额':
+          return COLORS.BALANCE;
+        default:
+          return '#000';
+      }
+    },
+    tooltip: {
+      showMarkers: true,
+      domStyles: {
+        'g2-tooltip': {
+          backgroundColor: 'rgba(0,0,0,0.85)',
+          padding: '12px 16px',
+          border: 'none',
+          borderRadius: '6px',
+          boxShadow: '0 3px 6px -4px rgba(0,0,0,.12)',
+        },
+        'g2-tooltip-title': {
+          color: '#fff',
+          fontWeight: 600,
+          marginBottom: '8px',
+        },
+        'g2-tooltip-list-item': {
+          color: '#fff',
+          marginBottom: '4px',
+        },
+      },
+      formatter: (datum: any) => {
+        if (datum && datum.value !== undefined) {
+          return {
+            title: `${datum.year}年`,
+            items: [
+              {
+                name: datum.type,
+                value: formatCurrency(datum.value),
+              },
+            ],
+          };
+        }
+        return null;
       },
     },
     legend: {
       position: 'top',
+      itemName: {
+        style: {
+          fontSize: 14,
+          fontWeight: 500,
+        },
+      },
+      marker: {
+        symbol: 'line',
+        style: ({ type }: { type: string }) => {
+          const colors = {
+            '保费支出': COLORS.PREMIUM,
+            '提取金额': COLORS.WITHDRAWAL,
+            '累计余额': COLORS.BALANCE,
+          };
+          return {
+            lineWidth: 3,
+            stroke: colors[type],
+          };
+        },
+      },
     },
     xAxis: {
-      title: { text: '年份' },
+      title: { 
+        text: '年份',
+        style: {
+          fontSize: 14,
+          fontWeight: 500,
+        }
+      },
+      grid: {
+        line: {
+          style: {
+            stroke: '#E5E7EB',
+            lineWidth: 1,
+            lineDash: [4, 4],
+          },
+        },
+      },
     },
     yAxis: {
-      title: { text: '金额' },
+      title: { 
+        text: '金额',
+        style: {
+          fontSize: 14,
+          fontWeight: 500,
+        }
+      },
       label: {
         formatter: (v: number) => `${formatCurrency(v)}`,
+        style: {
+          opacity: 0.8,
+        },
+      },
+      grid: {
+        line: {
+          style: {
+            stroke: '#E5E7EB',
+            lineWidth: 1,
+            lineDash: [4, 4],
+          },
+        },
       },
     },
-    tooltip: {
-      formatter: (datum: any) => {
-        return { name: datum.type, value: formatCurrency(datum.balance) };
+    interactions: [
+      {
+        type: 'element-active',
       },
-    },
+      {
+        type: 'legend-active',
+      },
+    ],
   };
 
   // 处理打印功能
@@ -122,11 +251,15 @@ const Result = ({ loading = false }) => {
     <Spin spinning={loading}>
       {solution ? (
         <>
-          <div id="report-content" className="space-y-8">
-            <Title level={2} className="text-center">储蓄险理财方案</Title>
+          <div id="report-content" className="space-y-4 sm:space-y-8 px-4 sm:px-6">
+            <Title level={2} className="text-center text-xl sm:text-2xl">储蓄险理财方案</Title>
 
             {/* 客户信息 */}
-            <Card title="客户信息">
+            <Card 
+              title="客户信息"
+              className="shadow-sm"
+              bodyStyle={{ padding: '12px 16px' }}
+            >
               <Descriptions 
                 column={{ xs: 1, sm: 2 }}
                 className="w-full"
@@ -171,7 +304,7 @@ const Result = ({ loading = false }) => {
 
             {/* 方案概览 */}
             <Card title="方案概览">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <div className="text-gray-500">总提取金额</div>
                   <div className="text-xl font-bold">
@@ -194,12 +327,16 @@ const Result = ({ loading = false }) => {
             </Card>
 
             {/* 推荐产品组合 */}
-            <Card title="推荐产品组合">
+            <Card 
+              title="推荐产品组合"
+              className="overflow-x-auto"
+            >
               <Table
                 dataSource={recommendationsWithKeys}
                 columns={productColumns}
                 pagination={false}
-                rowKey="key"
+                scroll={{ x: 'max-content' }}
+                size="small"
               />
             </Card>
 
@@ -234,3 +371,4 @@ const Result = ({ loading = false }) => {
 };
 
 export default Result;
+

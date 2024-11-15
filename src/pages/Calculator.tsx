@@ -56,8 +56,8 @@ const Calculator = () => {
   }
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-4 space-y-6">
-      <h2 className="text-xl md:text-2xl font-bold text-center">理财方案计算器</h2>
+    <div className="w-full max-w-5xl mx-auto p-4 space-y-4 md:space-y-6">
+      <h2 className="text-lg md:text-2xl font-bold text-center">理财方案计算器</h2>
       
       <Steps 
         current={currentStep} 
@@ -65,11 +65,11 @@ const Calculator = () => {
         onChange={handleStepChange}
         type="navigation"
         size="small"
-        className="px-2"
-        responsive={false}
+        className="px-2 overflow-x-auto"
+        responsive={true}
       />
       
-      <Card className="mt-4 md:mt-8">
+      <Card className="mt-4">
         {renderStepContent()}
       </Card>
     </div>

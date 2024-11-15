@@ -43,6 +43,7 @@ const InputForm = () => {
         startYear: new Date().getFullYear(),
         endYear: new Date().getFullYear() + 20
       }}
+      className="w-full max-w-sm mx-auto px-4 sm:px-6"
     >
       <Form.Item
         label="年度开支需求"

@@ -108,7 +108,7 @@ const ProductSelection = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6 px-4 sm:px-6">
       <Card title="筛选条件" className="shadow-sm">
         <div className="space-y-4">
           <div>
@@ -116,7 +116,7 @@ const ProductSelection = () => {
             <Select
               value={selectedTerm}
               onChange={handleTermChange}
-              style={{ width: 200 }}
+              className="w-full sm:w-[200px]"
             >
               {paymentTerms.map(term => (
                 <Option key={term} value={term}>{`${term}年`}</Option>
@@ -130,13 +130,17 @@ const ProductSelection = () => {
               options={companies}
               value={selectedCompanies}
               onChange={handleCompanyChange as any}
-              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2"
             />
           </div>
         </div>
       </Card>
 
-      <Card title="产品列表" className="shadow-sm">
+      <Card 
+        title="产品列表" 
+        className="shadow-sm"
+        bodyStyle={{ padding: '12px', overflowX: 'auto' }}
+      >
         <Table 
           columns={columns} 
           dataSource={filteredProducts}
@@ -146,8 +150,8 @@ const ProductSelection = () => {
             onChange: handleSelectionChange,
           }}
           pagination={false}
-          scroll={{ x: true }}
-          className="overflow-x-auto"
+          scroll={{ x: 'max-content' }}
+          size="small"
         />
       </Card>
       

@@ -9,10 +9,10 @@ const Contact = () => {
   }
 
   return (
-    <div className="space-y-8">
-      <h2 className="section-title">联系我们</h2>
+    <div className="space-y-6 p-4">
+      <h2 className="text-lg md:text-2xl font-bold text-center">联系我们</h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* 联系信息 */}
         <Card title="联系方式" className="h-fit">
           <div className="space-y-4">
@@ -56,7 +56,8 @@ const Contact = () => {
             >
               <Input 
                 prefix={<UserOutlined />} 
-                placeholder="您的姓名" 
+                placeholder="您的姓名"
+                className="mobile-input" 
               />
             </Form.Item>
 
@@ -70,6 +71,7 @@ const Contact = () => {
               <Input 
                 prefix={<MailOutlined />} 
                 placeholder="您的邮箱" 
+                className="mobile-input"
               />
             </Form.Item>
 
@@ -81,11 +83,12 @@ const Contact = () => {
                 prefix={<MessageOutlined />}
                 placeholder="请输入留言内容" 
                 rows={4}
+                className="mobile-input"
               />
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" block>
+              <Button type="primary" htmlType="submit" block className="mobile-button">
                 提交
               </Button>
             </Form.Item>

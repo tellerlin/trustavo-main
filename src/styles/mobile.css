@@ -50,3 +50,29 @@ a, button {
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+/* 添加以下移动端优化内容 */
+.mobile-menu-button {
+  @apply p-3 rounded-lg hover:bg-gray-100 transition-colors;
+  touch-action: manipulation;
+}
+
+.mobile-drawer .ant-drawer-content {
+  @apply rounded-t-2xl;
+}
+
+.mobile-menu-item {
+  @apply py-3 px-4 text-lg;
+  touch-action: manipulation;
+}
+
+/* 优化表单元素在移动端的点击区域 */
+.mobile-input {
+  @apply h-12 text-base;
+  touch-action: manipulation;
+}
+
+.mobile-button {
+  @apply h-12 text-base;
+  touch-action: manipulation;
+}

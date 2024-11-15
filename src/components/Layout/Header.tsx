@@ -12,7 +12,7 @@ const Header = () => {
   
   const menuItems = [
     { key: '/', label: '首页' },
-    { key: '/calculator', label: '计算器' },
+    { key: '/calculator', label: '规划器' },
     { key: '/contact', label: '联系我们' }
   ]
 
@@ -25,7 +25,7 @@ const Header = () => {
             alt="Trustavo Logo" 
             className="h-6 md:h-8 w-auto mr-2 md:mr-3"
           />
-          <span className="text-xl md:text-3xl font-bold text-blue-600 tracking-wider">
+          <span className="text-xl md:text-2xl font-bold text-blue-600 tracking-wider">
             TRUSTAVO卓信方案
           </span>
         </Link>
@@ -43,7 +43,7 @@ const Header = () => {
 
         {/* 移动端菜单按钮 */}
         <Button
-          className="md:hidden"
+          className="mobile-menu-button md:hidden"
           type="text"
           icon={<MenuOutlined />}
           onClick={() => setMobileMenuOpen(true)}
@@ -55,12 +55,16 @@ const Header = () => {
           placement="right"
           onClose={() => setMobileMenuOpen(false)}
           open={mobileMenuOpen}
+          className="mobile-drawer"
+          height="auto"
         >
           <Menu
             mode="vertical"
             selectedKeys={[location.pathname]}
+            className="mobile-menu"
             items={menuItems.map(item => ({
               key: item.key,
+              className: 'mobile-menu-item',
               label: <Link to={item.key} onClick={() => setMobileMenuOpen(false)}>{item.label}</Link>
             }))}
           />

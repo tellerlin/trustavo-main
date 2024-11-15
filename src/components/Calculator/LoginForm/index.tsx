@@ -18,6 +18,7 @@ const LoginForm = () => {
       autoComplete="off"
       layout="vertical"
       initialValues={formData.loginInfo}
+      className="w-full max-w-sm mx-auto px-4 sm:px-6"
     >
       <Form.Item
         name="username"

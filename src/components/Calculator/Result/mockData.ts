@@ -1,7 +1,55 @@
+// 获取当前年份
+const currentYear = new Date().getFullYear();
+
+// 生成现金流数据
+const generateCashFlow = () => {
+  const cashFlow = [];
+  const premiumYears = 5;  // 缴费5年
+  const waitingYears = 10; // 等待10年后开始提取
+  const totalYears = 30;   // 总共30年
+  const yearlyPremium = 253503;   // 年缴保费（正数）
+  const baseWithdrawal = 500000;  // 基础提取金额（正数）
+  const inflationRate = 0.03;     // 3%通胀率
+  const returnRate = 0.06;        // 6%年化收益率
+  
+  let balance = 0;
+
+  for (let i = 0; i < totalYears; i++) {
+    const year = currentYear + i;
+    let premium = 0;
+    let withdrawal = 0;
+    
+    // 前5年缴费期
+    if (i < premiumYears) {
+      premium = yearlyPremium;
+    }
+    
+    // 第15年开始提取
+    if (i >= premiumYears + waitingYears) {
+      withdrawal = baseWithdrawal * Math.pow(1 + inflationRate, i - (premiumYears + waitingYears));
+    }
+    
+    // 计算当年收益
+    const yearReturn = balance * returnRate;
+    
+    // 更新累计余额（保费为支出所以要减，提取为支出所以要减）
+    balance = balance - premium - withdrawal + yearReturn;
+    
+    cashFlow.push({
+      year,
+      premium,           // 保费支出（正数）
+      withdrawal,        // 提取金额（正数）
+      balance: Math.abs(Math.round(balance)), // 累计余额（确保为正数）
+    });
+  }
+  
+  return cashFlow;
+};
+
 export const mockSolution = {
   totalWithdrawal: 18191311,
   overallIRR: 0.0642,
-  totalPremium: 253503,
+  totalPremium: 1267515, // 修正为年度保费总和
   recommendations: [
     {
       productId: 'CL001',
@@ -50,13 +98,5 @@ export const mockSolution = {
     - 年度保费合理分配，降低投资压力
     - 产品组合多元化，分散风险
   `,
-  cashFlow: [
-    { year: 2024, premium: -253503, withdrawal: 0, balance: -253503 },
-    { year: 2025, premium: -253503, withdrawal: 0, balance: -507006 },
-    { year: 2026, premium: -253503, withdrawal: 0, balance: -760509 },
-    { year: 2027, premium: 0, withdrawal: 500000, balance: -260509 },
-    { year: 2028, premium: 0, withdrawal: 520000, balance: 259491 },
-    { year: 2029, premium: 0, withdrawal: 540000, balance: 799491 },
-    // ... 可以继续添加更多年份的现金流数据
-  ]
+  cashFlow: generateCashFlow(),
 };
