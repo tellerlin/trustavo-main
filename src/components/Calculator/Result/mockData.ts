@@ -39,10 +39,10 @@ const generateCashFlow = () => {
       year,
       premium,           // 保费支出（正数）
       withdrawal,        // 提取金额（正数）
-      balance: Math.abs(Math.round(balance)), // 累计余额（确保为正数）
+      balance: Math.abs(Math.round(balance)), // 确保为正数
     });
   }
-  
+  console.log('Generated Cash Flow:', cashFlow); // 调试输出
   return cashFlow;
 };
 

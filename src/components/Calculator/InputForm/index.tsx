@@ -40,8 +40,8 @@ const InputForm = () => {
       initialValues={{
         yearlyExpense: 200000,
         inflation: 3,
-        startYear: new Date().getFullYear(),
-        endYear: new Date().getFullYear() + 20
+        startYear: new Date().getFullYear() + 10,
+        endYear: new Date().getFullYear() + 30
       }}
       className="w-full max-w-sm mx-auto px-4 sm:px-6"
     >
@@ -80,8 +80,8 @@ const InputForm = () => {
       >
         <InputNumber 
           style={{ width: '100%' }} 
-          min={new Date().getFullYear()}
-          max={new Date().getFullYear() + 10}
+          min={new Date().getFullYear() + 10}
+          max={new Date().getFullYear() + 20}
         />
       </Form.Item>
 
@@ -92,8 +92,8 @@ const InputForm = () => {
       >
         <InputNumber 
           style={{ width: '100%' }}
-          min={new Date().getFullYear() + 10}
-          max={new Date().getFullYear() + 30}
+          min={new Date().getFullYear() + 30}
+          max={new Date().getFullYear() + 50}
         />
       </Form.Item>
 

@@ -58,23 +58,25 @@ const Result = ({ loading = false }) => {
   const transformCashFlowData = (cashFlow: any[]) => {
     if (!cashFlow) return [];
     
-    return cashFlow.flatMap(item => [
+    const transformedData = cashFlow.flatMap(item => [
       {
         year: item.year,
         type: '保费支出',
-        value: item.premium,
+        value: item.premium ?? 0,
       },
       {
         year: item.year,
         type: '提取金额',
-        value: item.withdrawal,
+        value: item.withdrawal ?? 0,
       },
       {
         year: item.year,
         type: '累计余额',
-        value: item.balance,
+        value: item.balance ?? 0,
       },
     ]);
+
+    return transformedData;
   };
 
   const chartConfig = {
@@ -97,37 +99,29 @@ const Result = ({ loading = false }) => {
     },
     tooltip: {
       showMarkers: true,
-      domStyles: {
-        'g2-tooltip': {
-          backgroundColor: 'rgba(0,0,0,0.85)',
-          padding: '12px 16px',
-          border: 'none',
-          borderRadius: '6px',
-          boxShadow: '0 3px 6px -4px rgba(0,0,0,.12)',
-        },
-        'g2-tooltip-title': {
-          color: '#fff',
-          fontWeight: 600,
-          marginBottom: '8px',
-        },
-        'g2-tooltip-list-item': {
-          color: '#fff',
-          marginBottom: '4px',
-        },
-      },
+      shared: true,
       formatter: (datum: any) => {
-        if (datum && datum.value !== undefined) {
-          return {
-            title: `${datum.year}年`,
-            items: [
-              {
-                name: datum.type,
-                value: formatCurrency(datum.value),
-              },
-            ],
-          };
-        }
-        return null;
+        return {
+          name: datum.type,
+          value: formatCurrency(datum.value || 0),
+        };
+      },
+      customContent: (title: string, items: any[]) => {
+        return `
+          <div style="padding: 8px;">
+            <div style="margin-bottom: 8px; font-weight: 500;">${title}年</div>
+            ${items
+              .map(
+                (item) => `
+                <div style="display: flex; justify-content: space-between; margin: 4px 0;">
+                  <span style="margin-right: 16px;">${item.name}</span>
+                  <span style="font-weight: 500;">${item.value}</span>
+                </div>
+              `
+              )
+              .join('')}
+          </div>
+        `;
       },
     },
     legend: {
@@ -139,7 +133,7 @@ const Result = ({ loading = false }) => {
         },
       },
       marker: {
-        symbol: 'line',
+        symbol: 'circle',
         style: ({ type }: { type: string }) => {
           const colors = {
             '保费支出': COLORS.PREMIUM,
@@ -147,19 +141,21 @@ const Result = ({ loading = false }) => {
             '累计余额': COLORS.BALANCE,
           };
           return {
-            lineWidth: 3,
+            r: 4,
+            fill: colors[type],
             stroke: colors[type],
           };
         },
       },
     },
     xAxis: {
-      title: { 
-        text: '年份',
+      type: 'linear',
+      tickInterval: 1,
+      label: {
+        formatter: (v: number) => `${v}年`,
         style: {
-          fontSize: 14,
-          fontWeight: 500,
-        }
+          opacity: 0.8,
+        },
       },
       grid: {
         line: {
@@ -203,6 +199,31 @@ const Result = ({ loading = false }) => {
         type: 'legend-active',
       },
     ],
+    lineStyle: {
+      lineWidth: 2.5,
+    },
+    point: {
+      size: 4,
+      shape: 'circle',
+      style: {
+        fill: '#fff',
+        stroke: ({ type }: { type: string }) => {
+          switch(type) {
+            case '保费支出':
+              return COLORS.PREMIUM;
+            case '提取金额':
+              return COLORS.WITHDRAWAL;
+            case '累计余额':
+              return COLORS.BALANCE;
+            default:
+              return '#000';
+          }
+        },
+        lineWidth: 2,
+      },
+    },
+    padding: [20, 20, 50, 50],
+    autoFit: true,
   };
 
   // 处理打印功能
@@ -258,7 +279,7 @@ const Result = ({ loading = false }) => {
             <Card 
               title="客户信息"
               className="shadow-sm"
-              bodyStyle={{ padding: '12px 16px' }}
+              styles={{ body: { padding: '12px 16px' } }}
             >
               <Descriptions 
                 column={{ xs: 1, sm: 2 }}
