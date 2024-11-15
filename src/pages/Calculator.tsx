@@ -11,10 +11,10 @@ const Calculator = () => {
 
   const steps = [
     { title: '登录' },
-    { title: '个人信息' },
-    { title: '产品筛选' },
-    { title: '需求录入' },
-    { title: '推荐方案' }
+    { title: '客户' },
+    { title: '产品' },
+    { title: '需求' },
+    { title: '方案' }
   ]
 
   // 检查是否可以跳转到目标步骤
