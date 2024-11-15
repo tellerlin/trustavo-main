@@ -25,9 +25,9 @@ const Footer: React.FC = () => {
       </div>
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap">
-          <div className="w-full lg:w-6/12 px-4">
-            <div className="flex flex-wrap items-top mb-6">
-              <div className="w-full lg:w-4/12 px-4">
+          <div className="w-full px-4">
+            <div className="flex flex-wrap justify-center md:justify-start">
+              <div className="w-full sm:w-6/12 md:w-4/12 lg:w-3/12 mb-6">
                 <span className="block uppercase text-gray-600 text-sm font-semibold mb-2">
                   其他产品
                 </span>
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
                   </li>
                 </ul>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
+              <div className="w-full sm:w-6/12 md:w-4/12 lg:w-3/12 mb-6">
                 <span className="block uppercase text-gray-600 text-sm font-semibold mb-2">
                   其他信息
                 </span>
@@ -65,12 +65,10 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <hr className="my-6 border-gray-400" />
-        <div className="flex flex-wrap items-center md:justify-between justify-center">
-          <div className="w-full md:w-4/12 px-4 mx-auto text-center">
-            <div className="text-sm text-gray-600 font-semibold py-1">
-              Copyright © {new Date().getFullYear()}{" "}
-              Trustavo卓信方案有限公司. 版权所有.
-            </div>
+        <div className="text-center">
+          <div className="text-sm text-gray-600 font-semibold py-1">
+            Copyright © {new Date().getFullYear()}{" "}
+            Trustavo卓信方案有限公司. 版权所有.
           </div>
         </div>
       </div>

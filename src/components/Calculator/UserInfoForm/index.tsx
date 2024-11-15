@@ -22,6 +22,7 @@ const UserInfoForm = () => {
         gender: 'male',
         ...formData.userInfo
       }}
+      className="w-full max-w-lg mx-auto px-2 md:px-4"
     >
       <Form.Item
         name="name"
@@ -54,13 +55,18 @@ const UserInfoForm = () => {
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
-              <Space key={key} align="baseline">
+              <Space 
+                key={key} 
+                align="baseline" 
+                className="w-full flex flex-wrap gap-2"
+              >
                 <Form.Item
                   {...restField}
                   name={[name, 'relationship']}
                   rules={[{ required: true, message: '请选择关系' }]}
+                  className="min-w-[120px]"
                 >
-                  <Select placeholder="选择关系" style={{ width: 120 }}>
+                  <Select placeholder="选择关系">
                     <Option value="spouse">配偶</Option>
                     <Option value="child">子女</Option>
                     <Option value="parent">父母</Option>
@@ -75,7 +81,12 @@ const UserInfoForm = () => {
                   <InputNumber min={0} max={100} placeholder="年龄" />
                 </Form.Item>
 
-                <MinusCircleOutlined onClick={() => remove(name)} />
+                <Button 
+                  type="text" 
+                  danger 
+                  icon={<MinusCircleOutlined />} 
+                  onClick={() => remove(name)}
+                />
               </Space>
             ))}
             <Form.Item>

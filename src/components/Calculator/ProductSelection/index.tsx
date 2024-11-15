@@ -130,7 +130,7 @@ const ProductSelection = () => {
               options={companies}
               value={selectedCompanies}
               onChange={handleCompanyChange as any}
-              className="grid grid-cols-2 md:grid-cols-4 gap-2"
+              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"
             />
           </div>
         </div>
@@ -146,6 +146,8 @@ const ProductSelection = () => {
             onChange: handleSelectionChange,
           }}
           pagination={false}
+          scroll={{ x: true }}
+          className="overflow-x-auto"
         />
       </Card>
       

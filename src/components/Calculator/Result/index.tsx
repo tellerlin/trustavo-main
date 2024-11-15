@@ -127,7 +127,10 @@ const Result = ({ loading = false }) => {
 
             {/* 客户信息 */}
             <Card title="客户信息">
-              <Descriptions column={2}>
+              <Descriptions 
+                column={{ xs: 1, sm: 2 }}
+                className="w-full"
+              >
                 <Descriptions.Item label="姓名">{userInfo?.name}</Descriptions.Item>
                 <Descriptions.Item label="性别">
                   {userInfo?.gender === 'male' ? '男' : '女'}
@@ -150,7 +153,10 @@ const Result = ({ loading = false }) => {
 
             {/* 需求信息 */}
             <Card title="理财需求">
-              <Descriptions column={2}>
+              <Descriptions 
+                column={{ xs: 1, sm: 2 }}
+                className="w-full"
+              >
                 <Descriptions.Item label="年度开支需求">
                   {formatCurrency(requirements?.yearlyExpense)}
                 </Descriptions.Item>
@@ -165,7 +171,7 @@ const Result = ({ loading = false }) => {
 
             {/* 方案概览 */}
             <Card title="方案概览">
-              <div className="grid grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
                   <div className="text-gray-500">总提取金额</div>
                   <div className="text-xl font-bold">

@@ -1,23 +1,43 @@
 .page-header {
-  padding: 2rem 0;
-  margin-bottom: 3rem;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
   border-bottom: 1px solid #e5e7eb;
   background-color: #fff;
 }
 
+@media (min-width: 768px) {
+  .page-header {
+    padding: 2rem 0;
+    margin-bottom: 3rem;
+  }
+}
+
 .page-title {
-  font-size: 2.5rem;
+  font-size: 1.875rem;
   font-weight: bold;
   color: #111827;
   text-align: center;
 }
 
+@media (min-width: 768px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+}
+
 .section-title {
-  margin: 2.5rem 0 1.5rem;
-  font-size: 1.875rem;
+  margin: 2rem 0 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #1f2937;
   text-align: center;
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    margin: 2.5rem 0 1.5rem;
+    font-size: 1.875rem;
+  }
 }
 
 .subsection-title {
@@ -25,4 +45,65 @@
   font-size: 1.5rem;
   font-weight: 500;
   color: #374151;
+}
+
+/* 添加以下内容 */
+/* 移动端容器padding优化 */
+.container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* 表单在移动端的优化 */
+.ant-form {
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .ant-form {
+    padding: 2rem;
+  }
+}
+
+/* 移动端输入框优化 */
+.ant-input,
+.ant-input-number,
+.ant-select {
+  height: 44px; /* 更大的点击区域 */
+}
+
+/* 移动端按钮优化 */
+.ant-btn {
+  height: 44px;
+  font-size: 1rem;
+}
+
+/* 移动端间距优化 */
+.spacing-y {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .spacing-y {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* 触摸反馈优化 */
+.touch-feedback {
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.2s;
+}
+
+.touch-feedback:active {
+  opacity: 0.7;
 }

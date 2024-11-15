@@ -9,3 +9,37 @@
   -webkit-text-fill-color: transparent;
 }
 
+// ... 保持现有代码 ...
+
+/* 移动端hero区域优化 */
+@media (max-width: 768px) {
+  .hero-pattern {
+    background-attachment: scroll;
+    min-height: 80vh;
+  }
+  
+  .gradient-text {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+}
+
+/* 移动端内容区块优化 */
+.content-block {
+  padding: 1.5rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .content-block {
+    padding: 3rem 2rem;
+  }
+}
+
+/* 移动端导航栏固定优化 */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

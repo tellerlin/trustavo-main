@@ -10,26 +10,11 @@ const Calculator = () => {
   const { currentStep, setCurrentStep, formData } = useCalculatorStore()
 
   const steps = [
-    {
-      title: '登录',
-      description: '用户验证',
-    },
-    {
-      title: '个人信息',
-      description: '基本信息录入',
-    },
-    {
-      title: '产品筛选',
-      description: '选择合适产品',
-    },
-    {
-      title: '需求录入',
-      description: '设置理财目标',
-    },
-    {
-      title: '推荐方案',
-      description: '查看方案详情',
-    },
+    { title: '登录' },
+    { title: '个人信息' },
+    { title: '产品筛选' },
+    { title: '需求录入' },
+    { title: '推荐方案' }
   ]
 
   // 检查是否可以跳转到目标步骤
@@ -71,17 +56,20 @@ const Calculator = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6 space-y-8">
-      <h2 className="text-2xl font-bold text-center">理财方案计算器</h2>
+    <div className="w-full max-w-5xl mx-auto p-4 space-y-6">
+      <h2 className="text-xl md:text-2xl font-bold text-center">理财方案计算器</h2>
       
       <Steps 
         current={currentStep} 
         items={steps}
         onChange={handleStepChange}
         type="navigation"
+        size="small"
+        className="px-2"
+        responsive={false}
       />
       
-      <Card className="mt-8">
+      <Card className="mt-4 md:mt-8">
         {renderStepContent()}
       </Card>
     </div>
