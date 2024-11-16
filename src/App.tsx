@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import Calculator from './pages/Calculator'
 import Contact from './pages/Contact'
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const App = () => {
   return (
