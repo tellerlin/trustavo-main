@@ -1,4 +1,4 @@
-import { Form, InputNumber, Button } from 'antd';
+import { Form, InputNumber, Button, Slider } from 'antd';
 import { useCalculatorStore } from '@/store/calculatorStore';
 import type { CustomerNeed } from '@/types';
 import { mockSolution } from '../Result/mockData';
@@ -41,7 +41,8 @@ const InputForm = () => {
         yearlyExpense: 200000,
         inflation: 3,
         startYear: new Date().getFullYear() + 10,
-        endYear: new Date().getFullYear() + 30
+        endYear: new Date().getFullYear() + 30,
+        maxProducts: 4
       }}
       className="w-full max-w-sm mx-auto px-4 sm:px-6"
     >
@@ -94,6 +95,28 @@ const InputForm = () => {
           style={{ width: '100%' }}
           min={new Date().getFullYear() + 30}
           max={new Date().getFullYear() + 50}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="最多推荐产品数"
+        name="maxProducts"
+        rules={[{ required: true, message: '请选择最多推荐产品数' }]}
+      >
+        <Slider
+          min={1}
+          max={8}
+          marks={{
+            1: '1',
+            2: '2',
+            3: '3',
+            4: '4',
+            5: '5',
+            6: '6',
+            7: '7',
+            8: '8'
+          }}
+          step={1}
         />
       </Form.Item>
 

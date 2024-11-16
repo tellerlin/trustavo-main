@@ -1,9 +1,7 @@
-import { Table, Card, Button, Space, Select, Checkbox } from 'antd';
+import { Table, Card, Button, Space, Slider, Checkbox } from 'antd';
 import { useState, useEffect, useMemo } from 'react';
 import { useCalculatorStore } from '@/store/calculatorStore';
 import { mockProducts } from './mockData';
-
-const { Option } = Select;
 
 const ProductSelection = () => {
   const { nextStep, updateFormData, formData } = useCalculatorStore();
@@ -15,7 +13,9 @@ const ProductSelection = () => {
     '中银人寿', '忠意'
   ];
 
-  const [selectedTerm, setSelectedTerm] = useState<number>(formData.selectedTerm || 1);
+  const [selectedTermRange, setSelectedTermRange] = useState<[number, number]>(
+    formData.selectedTermRange || [1, 5]
+  );
   const [selectedCompanies, setSelectedCompanies] = useState<string[]>(formData.selectedCompanies || companies);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>(formData.selectedProducts?.map(p => p.key) || []);
 
@@ -73,10 +73,11 @@ const ProductSelection = () => {
 
   const filteredProducts = useMemo(() => {
     return mockProducts.filter(product => 
-      product.paymentTerm === selectedTerm && 
+      product.paymentTerm >= selectedTermRange[0] && 
+      product.paymentTerm <= selectedTermRange[1] && 
       selectedCompanies.includes(product.company)
     );
-  }, [selectedTerm, selectedCompanies]);
+  }, [selectedTermRange, selectedCompanies]);
 
   useEffect(() => {
     if (!formData.selectedProducts && filteredProducts.length > 0) {
@@ -88,8 +89,8 @@ const ProductSelection = () => {
     setSelectedCompanies(checkedValues);
   };
 
-  const handleTermChange = (value: number) => {
-    setSelectedTerm(value);
+  const handleTermChange = (value: [number, number]) => {
+    setSelectedTermRange(value);
   };
 
   const handleSelectionChange = (selectedRowKeys: React.Key[]) => {
@@ -101,36 +102,45 @@ const ProductSelection = () => {
     const selectedProducts = filteredProducts.filter(product => 
       selectedRowKeys.includes(product.key)
     );
-    updateFormData('selectedTerm', selectedTerm);
+    updateFormData('selectedTermRange', selectedTermRange);
     updateFormData('selectedCompanies', selectedCompanies);
     updateFormData('selectedProducts', selectedProducts);
     nextStep();
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6 px-4 sm:px-6">
+    <div className="space-y-3 sm:space-y-4 px-3 sm:px-4">
       <Card title="筛选条件" className="shadow-sm">
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div>
-            <div className="mb-2 font-medium">缴费年限</div>
-            <Select
-              value={selectedTerm}
+            <div className="mb-1 font-medium">缴费年限</div>
+            <Slider
+              range
+              min={1}
+              max={10}
+              step={null}
+              marks={{
+                1: '1年',
+                3: '3年',
+                5: '5年',
+                8: '8年',
+                10: '10年'
+              }}
+              value={selectedTermRange}
               onChange={handleTermChange}
-              className="w-full sm:w-[200px]"
-            >
-              {paymentTerms.map(term => (
-                <Option key={term} value={term}>{`${term}年`}</Option>
-              ))}
-            </Select>
+              className="w-full sm:w-[400px]"
+              included={true}
+              tooltipVisible={false}
+            />
           </div>
 
           <div>
-            <div className="mb-2 font-medium">保险公司</div>
+            <div className="mb-1 font-medium">保险公司</div>
             <Checkbox.Group
               options={companies}
               value={selectedCompanies}
               onChange={handleCompanyChange as any}
-              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2"
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1"
             />
           </div>
         </div>
@@ -139,7 +149,7 @@ const ProductSelection = () => {
       <Card 
         title="产品列表" 
         className="shadow-sm"
-        bodyStyle={{ padding: '12px', overflowX: 'auto' }}
+        bodyStyle={{ padding: '8px', overflowX: 'auto' }}
       >
         <Table 
           columns={columns} 

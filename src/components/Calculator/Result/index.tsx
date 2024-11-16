@@ -257,7 +257,7 @@ const Result = ({ loading = false }) => {
         }
         .ant-card { 
           break-inside: avoid; 
-          margin-bottom: 20px; 
+          margin-bottom: 12px; 
         }
       }
     `;
@@ -272,14 +272,17 @@ const Result = ({ loading = false }) => {
     <Spin spinning={loading}>
       {solution ? (
         <>
-          <div id="report-content" className="space-y-4 sm:space-y-8 px-4 sm:px-6">
-            <Title level={2} className="text-center text-xl sm:text-2xl">储蓄险理财方案</Title>
+          <div id="report-content" className="space-y-2 sm:space-y-4 px-4 sm:px-6">
+            <Title level={2} className="text-center text-xl sm:text-2xl mb-2">储蓄险理财方案</Title>
 
             {/* 客户信息 */}
             <Card 
               title="客户信息"
-              className="shadow-sm"
-              styles={{ body: { padding: '12px 16px' } }}
+              className="shadow-sm mb-2"
+              styles={{ 
+                body: { padding: '12px 16px' },
+                header: { padding: '8px 16px' }
+              }}
             >
               <Descriptions 
                 column={{ xs: 1, sm: 2 }}
@@ -297,7 +300,7 @@ const Result = ({ loading = false }) => {
                         {index > 0 && '、'}
                         {member.relationship === 'spouse' ? '配偶' : 
                          member.relationship === 'child' ? '子女' : '父母'}
-                        : {member.age}岁
+                        : {member.age}
                       </span>
                     ))}
                   </Descriptions.Item>
@@ -319,6 +322,12 @@ const Result = ({ loading = false }) => {
                 </Descriptions.Item>
                 <Descriptions.Item label="提取期间">
                   {requirements?.startYear} - {requirements?.endYear}
+                </Descriptions.Item>
+                <Descriptions.Item label="缴费年限范围">
+                  {formData.selectedTermRange?.[0]} - {formData.selectedTermRange?.[1]}年
+                </Descriptions.Item>
+                <Descriptions.Item label="最多推荐产品数">
+                  {requirements?.maxProducts}个
                 </Descriptions.Item>
               </Descriptions>
             </Card>

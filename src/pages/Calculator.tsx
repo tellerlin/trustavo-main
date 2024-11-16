@@ -65,8 +65,8 @@ const Calculator = () => {
         onChange={handleStepChange}
         type="navigation"
         size="small"
-        className="px-2 overflow-x-auto"
-        responsive={true}
+        className="px-2 overflow-x-auto min-w-[300px] sm:min-w-full"
+        responsive={false}
       />
       
       <Card className="mt-4">
