@@ -1,5 +1,5 @@
 import { Card, Table, Button, Spin, Typography, Descriptions } from 'antd';
-import { Line } from '@ant-design/charts';
+import { Line, Bar } from '@ant-design/charts';
 import { formatCurrency } from '@/utils/format';
 import { useCalculatorStore } from '@/store/calculatorStore';
 import { useMemo, useEffect } from 'react';
@@ -232,6 +232,50 @@ const Result = ({ loading = false }) => {
     autoFit: true,
   };
 
+  // 更新年度缴费计划数据转换函数
+  const transformPaymentPlanData = (recommendations: any[]) => {
+    if (!recommendations?.length) return [];
+    
+    const yearlyPayments = new Map<number, number>();
+    let maxPaymentTerm = 0;
+
+    recommendations.forEach(product => {
+      const premium = product.premium;
+      const paymentTerm = product.paymentTerm;
+      maxPaymentTerm = Math.max(maxPaymentTerm, paymentTerm);
+
+      const annualPayment = premium / paymentTerm; // 平均分配到每年
+
+      for (let year = 0; year < paymentTerm; year++) {
+        const currentAmount = yearlyPayments.get(year) || 0;
+        yearlyPayments.set(year, currentAmount + annualPayment);
+      }
+    });
+
+    return Array.from(yearlyPayments.entries()).map(([year, amount]) => ({
+      year: `${year}年`,
+      amount: amount
+    }));
+  };
+
+  // 年度缴费计划表格数据
+  const paymentPlanData = transformPaymentPlanData(solution?.recommendations || []);
+
+  // 年度缴费计划表格列配置
+  const paymentPlanColumns = [
+    {
+      title: '年份',
+      dataIndex: 'year',
+      key: 'year',
+    },
+    {
+      title: '缴费金额',
+      dataIndex: 'amount',
+      key: 'amount',
+      render: (value: number) => formatCurrency(value),
+    },
+  ];
+
   // 处理打印功能
   const handlePrint = () => {
     window.print();
@@ -285,10 +329,7 @@ const Result = ({ loading = false }) => {
             <Card 
               title="客户信息"
               className="shadow-sm mb-1"
-              styles={{ 
-                body: { padding: '8px 16px' },
-                header: { padding: '6px 16px' }
-              }}
+              style={{ marginBottom: '8px', padding: '2px' }}
             >
               <Descriptions 
                 column={{ xs: 1, sm: 2 }}
@@ -315,7 +356,7 @@ const Result = ({ loading = false }) => {
             </Card>
 
             {/* 需求信息 */}
-            <Card title="理财需求">
+            <Card title="理财需求" style={{ marginBottom: '8px', padding: '2px' }}>
               <Descriptions 
                 column={{ xs: 1, sm: 2 }}
                 className="w-full"
@@ -339,7 +380,7 @@ const Result = ({ loading = false }) => {
             </Card>
 
             {/* 方案概览 */}
-            <Card title="方案概览">
+            <Card title="方案概览" style={{ marginBottom: '8px', padding: '2px' }}>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <div className="text-gray-500">总提取金额</div>
@@ -366,6 +407,7 @@ const Result = ({ loading = false }) => {
             <Card 
               title="推荐产品组合"
               className="overflow-x-auto"
+              style={{ marginBottom: '8px', padding: '2px' }}
             >
               <Table
                 dataSource={recommendationsWithKeys}
@@ -376,15 +418,25 @@ const Result = ({ loading = false }) => {
               />
             </Card>
 
+            {/* 添加年度缴费计划表格 */}
+            <Card title="年度缴费计划" style={{ marginBottom: '8px', padding: '2px' }}>
+              <Table
+                dataSource={paymentPlanData}
+                columns={paymentPlanColumns}
+                pagination={false}
+                size="small"
+              />
+            </Card>
+
             {/* 方案解读 */}
-            <Card title="方案解读">
+            <Card title="方案解读" style={{ marginBottom: '8px', padding: '2px' }}>
               <Paragraph className="whitespace-pre-line">
                 {solution.analysis}
               </Paragraph>
             </Card>
 
             {/* 现金流分析 */}
-            <Card title="现金流分析">
+            <Card title="现金流分析" style={{ marginBottom: '8px', padding: '2px' }}>
               <Line {...chartConfig} />
             </Card>
           </div>
