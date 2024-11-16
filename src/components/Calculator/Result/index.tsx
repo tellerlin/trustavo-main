@@ -24,7 +24,7 @@ const Result = ({ loading = false }) => {
       dataIndex: 'productName',
       key: 'productName',
       fixed: 'left',
-      width: 150,
+      ellipsis: true,
     },
     {
       title: '保险公司',

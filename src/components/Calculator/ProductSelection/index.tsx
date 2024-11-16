@@ -24,19 +24,17 @@ const ProductSelection = () => {
       title: '产品名称',
       dataIndex: 'productName',
       key: 'productName',
-      width: 200,
+      ellipsis: true,
     },
     {
       title: '保险公司',
       dataIndex: 'company',
       key: 'company',
-      width: 100,
     },
     {
       title: '最低投资',
       dataIndex: 'minInvestment',
       key: 'minInvestment',
-      width: 120,
       render: (value: number, record: any) => 
         `${record.currency} ${value.toLocaleString()}`,
     },
@@ -44,7 +42,6 @@ const ProductSelection = () => {
       title: '缴费年期',
       dataIndex: 'paymentTerm',
       key: 'paymentTerm',
-      width: 100,
       render: (value: number) => `${value}年`,
     },
     {
