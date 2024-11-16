@@ -12,7 +12,7 @@ const Home: React.FC = () => {
         <div
           className="absolute top-0 w-full h-full bg-center bg-cover"
           style={{
-            backgroundImage: `url(${heroImage})`, // 使用本地背景图片
+            backgroundImage: `url(${heroImage})`,
           }}
         >
           <span
@@ -28,38 +28,19 @@ const Home: React.FC = () => {
                   理财规划大师
                 </h1>
                 <p className="mt-4 text-lg text-gray-300">
-                  Trustavo 融合人工智能技术，为理财顾问提供智能化的方案规划工具。通过AI动的数据分析，助您制定更精准、更专业的理财方案。
+                  Trustavo运用最新的AI技术，为香港理财师打造智能规划工具。基于深度学习和大数据分析，15分钟内为您生成专业的理财规划方案，让规划更智能、更精准、更高效。
                 </p>
                 <div className="mt-8">
                   <a
                     href="/calculator"
                     className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-base px-8 py-3 rounded-lg shadow-md hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
                   >
-                    开始试用
+                    立即体验
                   </a>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
-          style={{ height: '70px' }}
-        >
-          <svg
-            className="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
-          >
-            <polygon
-              className="text-gray-300 fill-current"
-              points="2560 0 2560 100 0 100"
-            ></polygon>
-          </svg>
         </div>
       </div>
 
@@ -67,7 +48,6 @@ const Home: React.FC = () => {
       <section className="pb-20 bg-gray-300 -mt-24">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap">
-            {/* Feature 1 */}
             <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
@@ -76,68 +56,60 @@ const Home: React.FC = () => {
                   </div>
                   <h6 className="text-xl font-semibold">AI智能分析</h6>
                   <p className="mt-2 mb-4 text-gray-600">
-                    运用人工智能技术，智能分析客户需求，提供更精准的理财建议。
+                    采用最新的深度学习技术，智能分析客户需求，提供数据驱动的专业建议，让规划更科学。
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Feature 2 */}
             <div className="w-full md:w-4/12 px-4 text-center">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
-                    <i className="fas fa-clipboard-list"></i>
+                    <i className="fas fa-brain"></i>
                   </div>
-                  <h6 className="text-xl font-semibold">方案对比</h6>
+                  <h6 className="text-xl font-semibold">智能产品匹配</h6>
                   <p className="mt-2 mb-4 text-gray-600">
-                    提供多方案对比分析，帮助您为客户选择最优的理财组合。
+                    基于机器学习算法，从海量产品中智能筛选最优组合，为客户定制专属理财方案。
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Feature 3 */}
             <div className="pt-6 w-full md:w-4/12 px-4 text-center">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
-                    <i className="fas fa-clipboard-check"></i>
+                    <i className="fas fa-chart-line"></i>
                   </div>
-                  <h6 className="text-xl font-semibold">产品优化</h6>
+                  <h6 className="text-xl font-semibold">专业报告生成</h6>
                   <p className="mt-2 mb-4 text-gray-600">
-                    根据市场变化和客户需求，实时优化产组合，确保方案的持续有效。
+                    自动生成包含AI分析洞察的专业报告，提供现金流分析、收益预测等多维度分析。
                   </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Company Introduction Section */}
-      <section className="pb-20 bg-gray-300 -mt-24">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap">
-            {/* Company Description */}
+          {/* Company Introduction */}
+          <div className="flex flex-wrap items-center mt-32">
             <div className="w-full md:w-6/12 px-4">
-              <h2 className="text-4xl font-semibold">关于我们</h2>
+              <h2 className="text-4xl font-semibold">关于Trustavo</h2>
               <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                Trustavo 将人工智能技术与理财规划完美结合，为香港理财顾问打造新一代智能规划工具。我们的AI引擎能够快速分析海量数据，帮助您制定更精准的投资策略，大幅提升服务效率和专业水平。
+                Trustavo是一款融合AI技术的智能理财规划平台。我们运用深度学习和大数据分析技术，为香港理财师提供智能化的规划工具，帮助他们更高效地完成方案规划工作。
               </p>
               <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                借助 Trustavo 的AI分析能力，您可以更快速地理解客户需求，生成个性化的理财方案，并通过数据驱动的方式持续优化投资组合，为客户创造更大的价值。
+                我们的AI引擎基于海量数据训练，能精准分析客户需求，智能匹配最优产品组合，并生成专业的分析报告，让理财规划更智能、更专业。
               </p>
             </div>
 
-            {/* Company Mission */}
             <div className="w-full md:w-6/12 px-4">
               <h2 className="text-4xl font-semibold">我们的使命</h2>
               <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                我们致力于AI技术赋能理财顾问，让每一位专业人士都能借助人工智能的力量，提供更专业、更精准的理财服务。Trustavo 将成为您的智能助手，助力您在数字化时代保持竞争优势。
+                我们致力于用AI技术重新定义理财规划流程，让每位理财师都能借助智能工具，为客户提供更专业、更高效的理财服务。
               </p>
               <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                我们相信，AI与人类专业知识的结合将重新定义理财服务的未来。通过不断创新和优化我们的AI算法，Trustavo 将持续为香港理财顾问提供领先的技术支持，推动行业向更智能化的方向发展。
+                通过不断优化AI算法和产品功能，Trustavo将持续引领行业创新，推动香港理财行业迈向智能化新时代。
               </p>
             </div>
           </div>

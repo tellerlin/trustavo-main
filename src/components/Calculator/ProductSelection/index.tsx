@@ -108,13 +108,13 @@ const ProductSelection = () => {
   };
 
   return (
-    <div className="space-y-1 sm:space-y-2 px-1 sm:px-2">
+    <div className="space-y-1 sm:space-y-2 px-0.5 sm:px-1">
       <Card 
         title="筛选条件" 
         className="shadow-sm"
         styles={{
-          header: { padding: '4px 12px' },
-          body: { padding: '8px' }
+          header: { padding: '4px 8px' },
+          body: { padding: '6px' }
         }}
       >
         <div className="space-y-1">
@@ -156,8 +156,8 @@ const ProductSelection = () => {
         title="产品列表" 
         className="shadow-sm"
         styles={{
-          header: { padding: '4px 12px' },
-          body: { padding: '4px', overflowX: 'auto' }
+          header: { padding: '4px 8px' },
+          body: { padding: '2px', overflowX: 'auto' }
         }}
       >
         <Table 

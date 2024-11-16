@@ -26,7 +26,7 @@ const Header = () => {
             className="h-6 md:h-8 w-auto mr-2 md:mr-3"
           />
           <span className="text-xl md:text-2xl font-bold text-blue-600 tracking-wider">
-            TRUSTAVO卓信方案
+            TRUSTAVO卓信
           </span>
         </Link>
         

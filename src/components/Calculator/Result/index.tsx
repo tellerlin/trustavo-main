@@ -322,14 +322,13 @@ const Result = ({ loading = false }) => {
     <Spin spinning={loading}>
       {solution ? (
         <>
-          <div id="report-content" className="space-y-1 sm:space-y-2 px-4 sm:px-6">
+          <div id="report-content" className="space-y-1 sm:space-y-2 px-2 sm:px-4">
             <Title level={2} className="text-center text-xl sm:text-2xl mb-1">储蓄险理财方案</Title>
 
-            {/* 客户信息 */}
             <Card 
               title="客户信息"
               className="shadow-sm mb-1"
-              style={{ marginBottom: '8px', padding: '2px' }}
+              style={{ marginBottom: '8px', padding: '0' }}
             >
               <Descriptions 
                 column={{ xs: 1, sm: 2 }}
@@ -355,8 +354,10 @@ const Result = ({ loading = false }) => {
               </Descriptions>
             </Card>
 
-            {/* 需求信息 */}
-            <Card title="理财需求" style={{ marginBottom: '8px', padding: '2px' }}>
+            <Card 
+              title="理财需求" 
+              style={{ marginBottom: '8px', padding: '0' }}
+            >
               <Descriptions 
                 column={{ xs: 1, sm: 2 }}
                 className="w-full"
@@ -379,8 +380,10 @@ const Result = ({ loading = false }) => {
               </Descriptions>
             </Card>
 
-            {/* 方案概览 */}
-            <Card title="方案概览" style={{ marginBottom: '8px', padding: '2px' }}>
+            <Card 
+              title="方案概览" 
+              style={{ marginBottom: '8px', padding: '0' }}
+            >
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <div className="text-gray-500">总提取金额</div>
@@ -403,11 +406,10 @@ const Result = ({ loading = false }) => {
               </div>
             </Card>
 
-            {/* 推荐产品组合 */}
             <Card 
               title="推荐产品组合"
               className="overflow-x-auto"
-              style={{ marginBottom: '8px', padding: '2px' }}
+              style={{ marginBottom: '8px', padding: '0' }}
             >
               <Table
                 dataSource={recommendationsWithKeys}
@@ -418,8 +420,10 @@ const Result = ({ loading = false }) => {
               />
             </Card>
 
-            {/* 添加年度缴费计划表格 */}
-            <Card title="年度缴费计划" style={{ marginBottom: '8px', padding: '2px' }}>
+            <Card 
+              title="年度缴费计划" 
+              style={{ marginBottom: '8px', padding: '0' }}
+            >
               <Table
                 dataSource={paymentPlanData}
                 columns={paymentPlanColumns}
@@ -428,15 +432,19 @@ const Result = ({ loading = false }) => {
               />
             </Card>
 
-            {/* 方案解读 */}
-            <Card title="方案解读" style={{ marginBottom: '8px', padding: '2px' }}>
+            <Card 
+              title="方案解读" 
+              style={{ marginBottom: '8px', padding: '0' }}
+            >
               <Paragraph className="whitespace-pre-line">
                 {solution.analysis}
               </Paragraph>
             </Card>
 
-            {/* 现金流分析 */}
-            <Card title="现金流分析" style={{ marginBottom: '8px', padding: '2px' }}>
+            <Card 
+              title="现金流分析" 
+              style={{ marginBottom: '8px', padding: '0' }}
+            >
               <Line {...chartConfig} />
             </Card>
           </div>
