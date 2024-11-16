@@ -109,11 +109,18 @@ const ProductSelection = () => {
   };
 
   return (
-    <div className="space-y-3 sm:space-y-4 px-3 sm:px-4">
-      <Card title="筛选条件" className="shadow-sm">
-        <div className="space-y-3">
+    <div className="space-y-1 sm:space-y-2 px-1 sm:px-2">
+      <Card 
+        title="筛选条件" 
+        className="shadow-sm"
+        styles={{
+          header: { padding: '4px 12px' },
+          body: { padding: '8px' }
+        }}
+      >
+        <div className="space-y-1">
           <div>
-            <div className="mb-1 font-medium">缴费年限</div>
+            <div className="mb-0.5 font-medium">缴费年限</div>
             <Slider
               range
               min={1}
@@ -135,7 +142,7 @@ const ProductSelection = () => {
           </div>
 
           <div>
-            <div className="mb-1 font-medium">保险公司</div>
+            <div className="mb-0.5 font-medium">保险公司</div>
             <Checkbox.Group
               options={companies}
               value={selectedCompanies}
@@ -149,7 +156,10 @@ const ProductSelection = () => {
       <Card 
         title="产品列表" 
         className="shadow-sm"
-        bodyStyle={{ padding: '8px', overflowX: 'auto' }}
+        styles={{
+          header: { padding: '4px 12px' },
+          body: { padding: '4px', overflowX: 'auto' }
+        }}
       >
         <Table 
           columns={columns} 
@@ -165,7 +175,13 @@ const ProductSelection = () => {
         />
       </Card>
       
-      <Button type="primary" onClick={onFinish} block>
+      <Button 
+        type="primary" 
+        onClick={onFinish} 
+        block
+        size="middle"
+        className="mt-1"
+      >
         下一步
       </Button>
     </div>

@@ -278,16 +278,16 @@ const Result = ({ loading = false }) => {
     <Spin spinning={loading}>
       {solution ? (
         <>
-          <div id="report-content" className="space-y-2 sm:space-y-4 px-4 sm:px-6">
-            <Title level={2} className="text-center text-xl sm:text-2xl mb-2">储蓄险理财方案</Title>
+          <div id="report-content" className="space-y-1 sm:space-y-2 px-4 sm:px-6">
+            <Title level={2} className="text-center text-xl sm:text-2xl mb-1">储蓄险理财方案</Title>
 
             {/* 客户信息 */}
             <Card 
               title="客户信息"
-              className="shadow-sm mb-2"
+              className="shadow-sm mb-1"
               styles={{ 
-                body: { padding: '12px 16px' },
-                header: { padding: '8px 16px' }
+                body: { padding: '8px 16px' },
+                header: { padding: '6px 16px' }
               }}
             >
               <Descriptions 
@@ -394,7 +394,7 @@ const Result = ({ loading = false }) => {
             block 
             size="large" 
             onClick={handlePrint}
-            className="no-print mt-8"
+            className="no-print mt-4"
           >
             导出PDF报告
           </Button>
