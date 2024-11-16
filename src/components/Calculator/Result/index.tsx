@@ -306,7 +306,7 @@ const Result = ({ loading = false }) => {
                         {index > 0 && '、'}
                         {member.relationship === 'spouse' ? '配偶' : 
                          member.relationship === 'child' ? '子女' : '父母'}
-                        : {member.age}
+                        : {member.age}岁
                       </span>
                     ))}
                   </Descriptions.Item>
