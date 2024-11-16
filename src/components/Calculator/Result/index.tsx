@@ -358,13 +358,16 @@ const Result = ({ loading = false }) => {
             <Card 
               title="年度缴费计划" 
               style={{ marginBottom: '8px', padding: '0' }}
+              bodyStyle={{ padding: '12px', overflowX: 'auto' }}
             >
               <Table
                 dataSource={paymentPlanData}
                 columns={paymentPlanColumns}
                 pagination={false}
                 size="small"
-                rowKey="key"  // 指定使用 key 作为行的唯一标识
+                rowKey="key"
+                tableLayout="auto"
+                style={{ width: '100%' }}
               />
             </Card>
 
