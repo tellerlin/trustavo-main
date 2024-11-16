@@ -1,15 +1,12 @@
 import React from 'react';
-import Navbar from '../components/Layout/Navbar';
-import Footer from '../components/Layout/Footer';
-import heroImage from '../assets/img/hero.jpg'; // 引入本地背景图片
-import '../styles/tailwind.css';
-import '../styles/landing.css';
-import '@fortawesome/fontawesome-free/css/all.min.css'; // 引入 Font Awesome CSS
+import { Layout } from '@/components/Layout';
+import heroImage from '@/assets/img/hero.jpg';
+import '@/styles/tailwind.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Home: React.FC = () => {
   return (
-    <>
-      <Navbar transparent />
+    <Layout>
       <main>
         {/* Banner Section */}
         <div
@@ -35,7 +32,7 @@ const Home: React.FC = () => {
                     理财规划大师
                   </h1>
                   <p className="mt-4 text-lg text-gray-300">
-                    Trustavo 融合人工智能技术，为理财顾问提供智能化的方案规划工具。通过AI驱动的数据分析，助您制定更精准、更专业的理财方案。
+                    Trustavo 融合人工智能技术，为理财顾问提供智能化的方案规划工具。通过AI动的数据分析，助您制定更精准、更专业的理财方案。
                   </p>
                   <div className="mt-8">
                     <a
@@ -113,7 +110,7 @@ const Home: React.FC = () => {
                     </div>
                     <h6 className="text-xl font-semibold">产品优化</h6>
                     <p className="mt-2 mb-4 text-gray-600">
-                      根据市场变化和客户需求，实时优化产品组合，确保方案的持续有效性。
+                      根据市场变化和客户需求，实时优化产组合，确保方案的持续有效。
                     </p>
                   </div>
                 </div>
@@ -141,7 +138,7 @@ const Home: React.FC = () => {
               <div className="w-full md:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold">我们的使命</h2>
                 <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                  我们致力于用AI技术赋能理财顾问，让每一位专业人士都能借助人工智能的力量，提供更专业、更精准的理财服务。Trustavo 将成为您的智能助手，助力您在数字化时代保持竞争优势。
+                  我们致力于���AI技术赋能理财顾问，让每一位专业人士都能借助人工智能的力量，提供更专业、更精准的理财服务。Trustavo 将成为您的智能助手，助力您在数字化时代保持竞争优势。
                 </p>
                 <p className="mt-4 text-lg leading-relaxed text-gray-600">
                   我们相信，AI与人类专业知识的结合将重新定义理财服务的未来。通过不断创新和优化我们的AI算法，Trustavo 将持续为香港理财顾问提供领先的技术支持，推动行业向更智能化的方向发展。
@@ -151,8 +148,7 @@ const Home: React.FC = () => {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
+    </Layout>
   );
 };
 

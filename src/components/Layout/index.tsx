@@ -1,17 +1,19 @@
-import { Layout as AntLayout } from 'antd'
-import Header from './Header'
+import React from 'react';
+import Header from './Header';
+import Footer from './Footer';
 
-const { Content } = AntLayout
-
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <AntLayout className="min-h-screen">
-      <Header />
-      <Content className="pt-16">
-        {children}
-      </Content>
-    </AntLayout>
-  )
+interface LayoutProps {
+  children: React.ReactNode;
 }
 
-export default Layout 
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
+  return (
+    <>
+      <Header />
+      {children}
+      <Footer />
+    </>
+  );
+};
+
+export default Layout; 
