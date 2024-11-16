@@ -86,6 +86,10 @@ const ProductSelection = () => {
 
   const handleTermChange = (value: [number, number]) => {
     setSelectedTermRange(value);
+    const newSelectedKeys = filteredProducts
+      .filter(product => product.paymentTerm >= value[0] && product.paymentTerm <= value[1])
+      .map(product => product.key);
+    setSelectedRowKeys(newSelectedKeys);
   };
 
   const handleSelectionChange = (selectedRowKeys: React.Key[]) => {
