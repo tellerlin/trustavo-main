@@ -1,8 +1,35 @@
+interface CashFlowItem {
+  year: number;
+  premium: number;
+  withdrawal: number;
+  balance: number;
+}
+
+interface ProductRecommendation {
+  productId: string;
+  key: string;
+  productName: string;
+  company: string;
+  premium: number;
+  paymentTerm: number;
+  features: string[];
+  description: string;
+}
+
+interface Solution {
+  totalWithdrawal: number;
+  overallIRR: number;
+  totalPremium: number;
+  recommendations: ProductRecommendation[];
+  analysis: string;
+  cashFlow: CashFlowItem[];
+}
+
 // 获取当前年份
 const currentYear = new Date().getFullYear();
 
 // 生成现金流数据
-const generateCashFlow = () => {
+const generateCashFlow = (): CashFlowItem[] => {
   const cashFlow = [];
   const premiumYears = 5;  // 缴费5年
   const waitingYears = 10; // 等待10年后开始提取
@@ -46,7 +73,7 @@ const generateCashFlow = () => {
   return cashFlow;
 };
 
-export const mockSolution = {
+export const mockSolution: Solution = {
   totalWithdrawal: 18191311,
   overallIRR: 0.0642,
   totalPremium: 1267515, // 修正为年度保费总和

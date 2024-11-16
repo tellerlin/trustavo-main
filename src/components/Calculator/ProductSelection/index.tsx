@@ -136,7 +136,7 @@ const ProductSelection = () => {
               onChange={handleTermChange}
               className="w-full sm:w-[400px]"
               included={true}
-              tooltipVisible={false}
+              tooltip={{ open: false }}
             />
           </div>
 

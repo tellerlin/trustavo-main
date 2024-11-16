@@ -62,26 +62,29 @@ const Result = ({ loading = false }) => {
 
   // 修改数据转换函数
   const transformCashFlowData = (cashFlow: any[]) => {
-    if (!cashFlow) return [];
+    if (!cashFlow?.length) return [];
     
-    const transformedData = cashFlow.flatMap(item => [
+    const transformedData = cashFlow.flatMap((item) => [
       {
+        key: `premium-${item.year}`,
         year: item.year,
         type: '保费支出',
-        value: item.premium ?? 0,
+        value: Math.abs(Number(item.premium)) || 0,
       },
       {
+        key: `withdrawal-${item.year}`,
         year: item.year,
         type: '提取金额',
-        value: item.withdrawal ?? 0,
+        value: Math.abs(Number(item.withdrawal)) || 0,
       },
       {
+        key: `balance-${item.year}`,
         year: item.year,
         type: '累计余额',
-        value: item.balance ?? 0,
+        value: Math.abs(Number(item.balance)) || 0,
       },
     ]);
-
+    
     return transformedData;
   };
 
@@ -107,24 +110,28 @@ const Result = ({ loading = false }) => {
       showMarkers: true,
       shared: true,
       formatter: (datum: any) => {
+        const value = Math.abs(Number(datum?.value)) || 0;
         return {
-          name: datum.type,
-          value: formatCurrency(datum.value || 0),
+          name: datum?.type || '',
+          value: formatCurrency(value),
         };
       },
       customContent: (title: string, items: any[]) => {
+        if (!items?.length) return '';
+        
         return `
           <div style="padding: 8px;">
             <div style="margin-bottom: 8px; font-weight: 500;">${title}年</div>
             ${items
-              .map(
-                (item) => `
-                <div style="display: flex; justify-content: space-between; margin: 4px 0;">
-                  <span style="margin-right: 16px;">${item.name}</span>
-                  <span style="font-weight: 500;">${item.value}</span>
-                </div>
-              `
-              )
+              .map(item => {
+                if (!item?.data) return '';
+                return `
+                  <div style="display: flex; justify-content: space-between; margin: 4px 0;">
+                    <span style="margin-right: 16px;">${item.name || ''}</span>
+                    <span style="font-weight: 500;">${item.value || '¥0'}</span>
+                  </div>
+                `;
+              })
               .join('')}
           </div>
         `;
@@ -132,88 +139,13 @@ const Result = ({ loading = false }) => {
     },
     legend: {
       position: 'top',
-      itemName: {
-        style: {
-          fontSize: 14,
-          fontWeight: 500,
-        },
-      },
-      marker: {
-        symbol: 'circle',
-        style: ({ type }: { type: string }) => {
-          const colors = {
-            '保费支出': COLORS.PREMIUM,
-            '提取金额': COLORS.WITHDRAWAL,
-            '累计余额': COLORS.BALANCE,
-          };
-          return {
-            r: 4,
-            fill: colors[type],
-            stroke: colors[type],
-          };
-        },
-      },
-    },
-    xAxis: {
-      type: 'linear',
-      tickInterval: 1,
-      label: {
-        formatter: (v: number) => `${v}年`,
-        style: {
-          opacity: 0.8,
-        },
-      },
-      grid: {
-        line: {
-          style: {
-            stroke: '#E5E7EB',
-            lineWidth: 1,
-            lineDash: [4, 4],
-          },
-        },
-      },
-    },
-    yAxis: {
-      title: { 
-        text: '金额',
-        style: {
-          fontSize: 14,
-          fontWeight: 500,
-        }
-      },
-      label: {
-        formatter: (v: number) => `${formatCurrency(v)}`,
-        style: {
-          opacity: 0.8,
-        },
-      },
-      grid: {
-        line: {
-          style: {
-            stroke: '#E5E7EB',
-            lineWidth: 1,
-            lineDash: [4, 4],
-          },
-        },
-      },
-    },
-    interactions: [
-      {
-        type: 'element-active',
-      },
-      {
-        type: 'legend-active',
-      },
-    ],
-    lineStyle: {
-      lineWidth: 2.5,
     },
     point: {
       size: 4,
       shape: 'circle',
       style: {
         fill: '#fff',
-        stroke: ({ type }: { type: string }) => {
+        stroke: ({ type }) => {
           switch(type) {
             case '保费支出':
               return COLORS.PREMIUM;
@@ -228,8 +160,9 @@ const Result = ({ loading = false }) => {
         lineWidth: 2,
       },
     },
-    padding: [20, 20, 50, 50],
-    autoFit: true,
+    lineStyle: {
+      lineWidth: 2.5,
+    },
   };
 
   // 更新年度缴费计划数据转换函数
@@ -244,7 +177,7 @@ const Result = ({ loading = false }) => {
       const paymentTerm = product.paymentTerm;
       maxPaymentTerm = Math.max(maxPaymentTerm, paymentTerm);
 
-      const annualPayment = premium / paymentTerm; // 平均分配到每年
+      const annualPayment = premium / paymentTerm;
 
       for (let year = 0; year < paymentTerm; year++) {
         const currentAmount = yearlyPayments.get(year) || 0;
@@ -252,7 +185,9 @@ const Result = ({ loading = false }) => {
       }
     });
 
+    // 添加 key 属性到每个数据项
     return Array.from(yearlyPayments.entries()).map(([year, amount]) => ({
+      key: `payment-year-${year}`,  // 添加唯一 key
       year: `${year}年`,
       amount: amount
     }));
@@ -368,7 +303,7 @@ const Result = ({ loading = false }) => {
                 <Descriptions.Item label="通胀率预期">
                   {(requirements?.inflation * 100).toFixed(1)}%
                 </Descriptions.Item>
-                <Descriptions.Item label="提取期间">
+                <Descriptions.Item label="提取期">
                   {requirements?.startYear} - {requirements?.endYear}
                 </Descriptions.Item>
                 <Descriptions.Item label="缴费年限范围">
@@ -429,6 +364,7 @@ const Result = ({ loading = false }) => {
                 columns={paymentPlanColumns}
                 pagination={false}
                 size="small"
+                rowKey="key"  // 指定使用 key 作为行的唯一标识
               />
             </Card>
 
