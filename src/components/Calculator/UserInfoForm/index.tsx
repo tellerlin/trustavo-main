@@ -22,7 +22,7 @@ const UserInfoForm = () => {
         gender: 'male',
         ...formData.userInfo
       }}
-      className="w-full max-w-lg mx-auto px-4 sm:px-6"
+      className="w-full max-w-lg mx-auto px-4 sm:px-6 [&_.ant-form-item]:mb-3"
     >
       <Form.Item
         name="name"

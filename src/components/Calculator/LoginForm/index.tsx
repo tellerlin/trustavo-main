@@ -18,7 +18,7 @@ const LoginForm = () => {
       autoComplete="off"
       layout="vertical"
       initialValues={formData.loginInfo}
-      className="w-full max-w-sm mx-auto px-4 sm:px-6"
+      className="w-full max-w-sm mx-auto px-4 sm:px-6 [&_.ant-form-item]:mb-3"
     >
       <Form.Item
         name="username"

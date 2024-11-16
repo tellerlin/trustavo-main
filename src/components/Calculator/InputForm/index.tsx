@@ -44,7 +44,7 @@ const InputForm = () => {
         endYear: new Date().getFullYear() + 30,
         maxProducts: 4
       }}
-      className="w-full max-w-sm mx-auto px-4 sm:px-6"
+      className="w-full max-w-sm mx-auto px-4 sm:px-6 [&_.ant-form-item]:mb-3"
     >
       <Form.Item
         label="年度开支需求"
