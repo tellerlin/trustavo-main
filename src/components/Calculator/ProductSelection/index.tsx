@@ -64,11 +64,6 @@ const ProductSelection = () => {
         </div>
       ),
     },
-    {
-      title: '描述',
-      dataIndex: 'description',
-      key: 'description',
-    },
   ];
 
   const filteredProducts = useMemo(() => {
