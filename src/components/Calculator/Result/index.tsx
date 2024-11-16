@@ -39,6 +39,12 @@ const Result = ({ loading = false }) => {
       render: (value: number) => formatCurrency(value),
     },
     {
+      title: '缴费年限',
+      dataIndex: 'paymentTerm',
+      key: 'paymentTerm',
+      render: (value: number) => `${value}年`,
+    },
+    {
       title: '产品特点',
       dataIndex: 'features',
       key: 'features',

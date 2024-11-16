@@ -57,6 +57,7 @@ export const mockSolution = {
       productName: '裕饶传承',
       company: '中国人寿',
       premium: 21525,
+      paymentTerm: 5,
       features: ['保证现金价值', '终期红利', '财富传承'],
       description: '灵活提取，稳健增值，适合长期财富积累'
     },
@@ -65,6 +66,7 @@ export const mockSolution = {
       productName: '启航财富',
       company: '忠意',
       premium: 96624,
+      paymentTerm: 3,
       features: ['保证回报', '灵活提取', '财富传承'],
       description: '稳健回报，灵活运用，满足不同人生阶段需求'
     },
@@ -73,6 +75,7 @@ export const mockSolution = {
       productName: '挚汇',
       company: '安盛',
       premium: 110918,
+      paymentTerm: 5,
       features: ['高潜在回报', '终期红利', '财富传承'],
       description: '追求卓越回报，实现财富增值目标'
     },
@@ -81,6 +84,7 @@ export const mockSolution = {
       productName: '传承守创',
       company: '安达',
       premium: 24436,
+      paymentTerm: 3,
       features: ['保证现金价值', '灵活提取', '财富传承'],
       description: '稳健增值，灵活理财，守护财富传承'
     }
